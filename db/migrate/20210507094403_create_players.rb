@@ -5,7 +5,7 @@ class CreatePlayers < ActiveRecord::Migration[6.1]
       t.string :surname
       t.string :initial
       t.string :firstname
-      t.bool :active
+      t.boolean :active
 
       t.timestamps
     end
