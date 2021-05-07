@@ -1,0 +1,57 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  year: 
+  matches: 
+  innings: 
+  notout: 
+  highest: 
+  highestnotout: false
+  runsscored: 
+  fours: 
+  sixes: 
+  overs: 
+  balls: 
+  maidens: 
+  wides: 
+  noballs: 
+  runs: 
+  wickets: 
+  fivewktinn: 
+  caught: 
+  stumped: 
+  fifties: 
+  hundreds: 
+  fives: 
+  caughtwkt: 
+  captain: 
+  keptwicket: 
+
+two:
+  code: MyString
+  year: 
+  matches: 
+  innings: 
+  notout: 
+  highest: 
+  highestnotout: false
+  runsscored: 
+  fours: 
+  sixes: 
+  overs: 
+  balls: 
+  maidens: 
+  wides: 
+  noballs: 
+  runs: 
+  wickets: 
+  fivewktinn: 
+  caught: 
+  stumped: 
+  fifties: 
+  hundreds: 
+  fives: 
+  caughtwkt: 
+  captain: 
+  keptwicket: 
