@@ -1,2 +1,13 @@
 <h1>Players#index</h1>
-<p>Find me in app/views/players/index.html.erb</p>
+<table>
+    <thead>
+        <th>Name</th>
+    </thead>
+    <tbody>
+        <% for player in @players %>
+            <tr>
+                <td><%= player.name %></td>
+            </tr>
+        <%  end %>
+    </tbody>
+</table>
