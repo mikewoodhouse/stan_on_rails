@@ -10,7 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_094403) do
+ActiveRecord::Schema.define(version: 2021_05_07_152729) do
+
+  create_table "performances", force: :cascade do |t|
+    t.string "code"
+    t.integer "year"
+    t.integer "matches"
+    t.integer "innings"
+    t.integer "notout"
+    t.integer "highest"
+    t.boolean "highestnotout"
+    t.integer "runsscored"
+    t.integer "fours"
+    t.integer "sixes"
+    t.integer "overs"
+    t.integer "balls"
+    t.integer "maidens"
+    t.integer "wides"
+    t.integer "noballs"
+    t.integer "runs"
+    t.integer "wickets"
+    t.integer "fivewktinn"
+    t.integer "caught"
+    t.integer "stumped"
+    t.integer "fifties"
+    t.integer "hundreds"
+    t.integer "fives"
+    t.integer "caughtwkt"
+    t.integer "captain"
+    t.integer "keptwicket"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "players", force: :cascade do |t|
     t.string "code"
