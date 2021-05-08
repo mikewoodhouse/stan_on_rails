@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_05_07_152729) do
 
   create_table "performances", force: :cascade do |t|
+    t.integer "player_id"
     t.string "code"
     t.integer "year"
     t.integer "matches"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_152729) do
     t.integer "keptwicket"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_performances_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -53,4 +55,5 @@ ActiveRecord::Schema.define(version: 2021_05_07_152729) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "performances", "players"
 end

@@ -1,6 +1,8 @@
 class CreatePerformances < ActiveRecord::Migration[6.1]
   def change
     create_table :performances do |t|
+      t.belongs_to :player, index: true, foreign_key: true
+
       t.string :code
       t.integer :year
       t.integer :matches
