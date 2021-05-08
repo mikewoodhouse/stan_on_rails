@@ -2,7 +2,52 @@
   = @player.name
 %table
   %thead
-    %th Name
+    %th Year
+    %th Matches
+    %th Innings
+    %th NotOut
+    %th Highest
+    %th Runs
+    %th Bat Avg
+    %th Fifties
+    %th Hundreds
+    %th Fours
+    %th Sixes
+    %th Overs
+    %th Maidens
+    %th Conceded
+    %th Wickets
+    %th Bowl Avg
+    %th Five+
+    %th Caught
+    %th Stumped
+    %th Fives
+    %th CaughtWkt
+    %th Captain
+    %th KeptWicket
   %tbody
-    %tr
-      %td
+    - @player.performances.each do |perf|
+      %tr
+        %td= perf.year
+        %td= perf.matches
+        %td= perf.innings
+        %td= perf.notout
+        %td= perf.high_score
+        %td= perf.runsscored
+        %td= perf.bat_avg
+        %td= perf.fifties
+        %td= perf.hundreds
+        %td= perf.fours
+        %td= perf.sixes
+        %td= perf.overs_and_balls
+        %td= perf.maidens
+        %td= perf.runs
+        %td= perf.wickets
+        %td= perf.bowl_avg
+        %td= perf.fivewktinn
+        %td= perf.caught
+        %td= perf.stumped
+        %td= perf.fives
+        %td= perf.caughtwkt
+        %td= perf.captain
+        %td= perf.keptwicket
