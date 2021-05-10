@@ -3,55 +3,61 @@ require "csv"
 def cleanup_imported_types(h, string_cols, boolean_cols)
   h.each do |k, v|
     if string_cols.include?(k)
-      next
+      h[k] = v
     elsif boolean_cols.include?(k)
-      h[k] = (v == 1)
+      h[k] = (v.to_i == 1)
     else
       h[k] = v.to_i
     end
   end
 end
 
+def import_model_data(spec)
+  klass = spec[:klass]
+  file_base_name = spec[:txt_file_name] || klass.to_s
+  file_name = file_base_name + ".txt"
+  csv_file = File.join(CSV_PATH, file_name)
+  klass.destroy_all
+  player_id_lookup = Hash[Player.all.map { |p| [p.code, p.id] }]
+  string_cols = spec[:string_cols] || []
+  bool_cols = spec[:bool_cols] || []
+  player_id_col_map = spec[:col_map] || {}
+  File.open(csv_file, "r") do |fin|
+    hdr_line = fin.readline
+    hdrs = CSV.parse(hdr_line).flatten
+    hdrs = hdrs.map { |h| h.downcase }
+    until fin.eof
+      line = fin.readline
+      vals = CSV.parse(line).flatten
+      value_hash = cleanup_imported_types(Hash[hdrs.zip(vals)], string_cols, bool_cols)
+      klass.new(value_hash) do |obj|
+        player_id_col_map.each do |in_col, out_col|
+          puts "#{obj["code"]} => #{player_id_lookup[value_hash["code"]]}"
+          puts "obj[#{out_col}] = player_id_lookup[obj[#{in_col}]] = player_id_lookup[#{obj[in_col]}] = #{player_id_lookup[obj[in_col]]}"
+          obj[out_col] = player_id_lookup[obj[in_col]]
+        end
+        obj.save!
+      end
+    end
+  end
+  puts "#{klass.count} records loaded for #{klass}"
+end
+
 namespace :import do
   CSV_PATH = "#{Rails.public_path}/csvdata"
 
   desc "import all the data"
-  task everything: :performances do
-    puts "#{Player.count} players"
-    puts "#{Performance.count} performances"
+  task everything: [:players, :performances] do
   end
 
   desc "import player csv data"
   task players: :environment do
-    csv_file = File.join(CSV_PATH, "Player.txt")
-    Player.destroy_all
-    File.open(csv_file, "r") do |fin|
-      hdr_line = fin.readline
-      hdrs = CSV.parse(hdr_line).flatten
-      hdrs = hdrs.map { |h| h.downcase }
-      until fin.eof
-        line = fin.readline
-        vals = CSV.parse(line).flatten
-        player = Player.create(Hash[hdrs.zip(vals)])
-      end
-    end
+    import_model_data(klass: Player, bool_cols: %w{active}, string_cols: %w{code surname initial firstname})
   end
 
   desc "import player performance csv data"
-  task performances: :players do
-    csv_file = File.join(CSV_PATH, "Performance.txt")
-    Performance.destroy_all
-    player_id_lookup = Hash[Player.all.map { |p| [p.code, p.id] }]
-    File.open(csv_file, "r") do |fin|
-      hdr_line = fin.readline
-      hdrs = CSV.parse(hdr_line).flatten.map { |h| h.downcase }
-      until fin.eof
-        vals = CSV.parse(fin.readline).flatten
-        perf_hash = cleanup_imported_types(Hash[hdrs.zip(vals)], %w{code}, %w{highestnotout})
-        perf = Performance.new(perf_hash)
-        perf.player_id = player_id_lookup[perf_hash["code"]]
-        perf.save!
-      end
-    end
+  task performances: :environment do
+    import_model_data(klass: Performance, string_cols: %w{code}, bool_cols: %w{highestnotout},
+                      col_map: { 'code': "player_id" })
   end
 end
