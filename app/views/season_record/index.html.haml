@@ -1,43 +1,34 @@
-%h1 SeasonRecord#index
+%h1 Season Records: Trinity & Opponents
 %table
     %thead
         %tr
-            %th year
-            %th club
-            %th runsscored
-            %th wicketslost
-            %th highest
-            %th highestwkts
-            %th highestdate
-            %th highestopps
-            %th lowest
-            %th lowestwkts
-            %th lowestdate
-            %th lowestopps
-            %th byes
-            %th legbyes
-            %th wides
-            %th noballs
-            %th ballsbowled
-            %th ballsreceived
+            %th{rowspan: 2, bgcolor: '#90ee90'} Year
+            %th{colspan: 4, bgcolor: '#d9b2b2'} Trinity
+            %th{colspan: 4, bgcolor: '#ccd3d9'} Opponents
+            %th{colspan: 4, bgcolor: '#d9b2b2'} Extras - Trinity
+            %th{colspan: 4, bgcolor: '#ccd3d9'} Extras - Opponents
+        %tr
+            - 2.times do
+                %th Runs Scored
+                %th Wickets Lost
+                %th Highest
+                %th Lowest
+            - 2.times do
+                %th Byes
+                %th Leg Byes
+                %th Wides
+                %th No Balls
     %tbody
-        - for rec in @season_records
-            %tr
-                %td= rec.year
-                %td= rec.club
-                %td= rec.runsscored
-                %td= rec.wicketslost
-                %td= rec.highest
-                %td= rec.highestwkts
-                %td= rec.highestdate
-                %td= rec.highestopps
-                %td= rec.lowest
-                %td= rec.lowestwkts
-                %td= rec.lowestdate
-                %td= rec.lowestopps
-                %td= rec.byes
-                %td= rec.legbyes
-                %td= rec.wides
-                %td= rec.noballs
-                %td= rec.ballsbowled
-                %td= rec.ballsreceived
+        - for yr, rec in @season_records
+            %tr{class: cycle('odd', 'even')}
+                %td= yr
+                - ['TCC', 'Opp'].each do |club|
+                    %td= rec[club].runsscored
+                    %td= rec[club].wicketslost
+                    %td= rec[club].highest_match
+                    %td= rec[club].lowest_match
+                - ['TCC', 'Opp'].each do |club|
+                    %td= rec[club].byes
+                    %td= rec[club].legbyes
+                    %td= rec[club].wides
+                    %td= rec[club].noballs

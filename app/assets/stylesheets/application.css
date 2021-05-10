@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+tr.even {
+    background: #b0b0a0;
+}
+tr.odd {
+    background: #d0d0c0;
+}
