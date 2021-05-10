@@ -8,7 +8,7 @@
   %tbody
     - for player in @players
       %tr
-        %td= link_to player.name, "player/#{player.code}"
+        %td= link_to player.name, player.code
         %td= player.seasons[:from]
         %td= player.seasons[:to]
         %td= player.appearances
