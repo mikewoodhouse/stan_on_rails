@@ -19,3 +19,6 @@ tr.even {
 tr.odd {
     background: #d0d0c0;
 }
+td.number {
+    text-align: right;
+}

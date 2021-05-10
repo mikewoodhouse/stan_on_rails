@@ -1,7 +1,7 @@
 %h1
   = @player.name
 %table
-  %thead
+  %thead{bgcolor: '#d9b2b2'}
     %th Year
     %th Matches
     %th Innings
@@ -21,33 +21,31 @@
     %th Five+
     %th Caught
     %th Stumped
-    %th Fives
     %th CaughtWkt
     %th Captain
     %th KeptWicket
   %tbody
     - @player.performances.each do |perf|
-      %tr
-        %td= perf.year
-        %td= perf.matches
-        %td= perf.innings
-        %td= perf.notout
-        %td= perf.high_score
-        %td= perf.runsscored
-        %td= perf.bat_avg
-        %td= perf.fifties
-        %td= perf.hundreds
-        %td= perf.fours
-        %td= perf.sixes
-        %td= perf.overs_and_balls
-        %td= perf.maidens
-        %td= perf.runs
-        %td= perf.wickets
-        %td= perf.bowl_avg
-        %td= perf.fivewktinn
-        %td= perf.caught
-        %td= perf.stumped
-        %td= perf.fives
-        %td= perf.caughtwkt
-        %td= perf.captain
-        %td= perf.keptwicket
+      %tr{class: cycle('odd', 'even')}
+        %td.number= perf.year
+        %td.number= perf.matches
+        %td.number= perf.innings
+        %td.number= perf.notout
+        %td.number= perf.high_score
+        %td.number= perf.runsscored
+        %td.number= number_with_precision(perf.bat_avg, precision: 2)
+        %td.number= perf.fifties
+        %td.number= perf.hundreds
+        %td.number= perf.fours
+        %td.number= perf.sixes
+        %td.number= perf.overs_and_balls
+        %td.number= perf.maidens
+        %td.number= perf.runs
+        %td.number= perf.wickets
+        %td.number= number_with_precision(perf.bowl_avg, precision: 2)
+        %td.number= perf.fivewktinn
+        %td.number= perf.caught
+        %td.number= perf.stumped
+        %td.number= perf.caughtwkt
+        %td.number= perf.captain
+        %td.number= perf.keptwicket
