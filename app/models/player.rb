@@ -9,4 +9,8 @@ class Player < ApplicationRecord
   def seasons
     @season_range ||= { from: performances.map(&:year).min, to: performances.map(&:year).max }
   end
+
+  def appearances
+    @apps ||= performances.sum { |p| p.matches }
+  end
 end
