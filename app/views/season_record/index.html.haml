@@ -1,0 +1,43 @@
+%h1 SeasonRecord#index
+%table
+    %thead
+        %tr
+            %th year
+            %th club
+            %th runsscored
+            %th wicketslost
+            %th highest
+            %th highestwkts
+            %th highestdate
+            %th highestopps
+            %th lowest
+            %th lowestwkts
+            %th lowestdate
+            %th lowestopps
+            %th byes
+            %th legbyes
+            %th wides
+            %th noballs
+            %th ballsbowled
+            %th ballsreceived
+    %tbody
+        - for rec in @season_records
+            %tr
+                %td= rec.year
+                %td= rec.club
+                %td= rec.runsscored
+                %td= rec.wicketslost
+                %td= rec.highest
+                %td= rec.highestwkts
+                %td= rec.highestdate
+                %td= rec.highestopps
+                %td= rec.lowest
+                %td= rec.lowestwkts
+                %td= rec.lowestdate
+                %td= rec.lowestopps
+                %td= rec.byes
+                %td= rec.legbyes
+                %td= rec.wides
+                %td= rec.noballs
+                %td= rec.ballsbowled
+                %td= rec.ballsreceived

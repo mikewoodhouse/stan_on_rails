@@ -1,11 +1,17 @@
 require "csv"
 
-def cleanup_imported_types(h, string_cols, boolean_cols)
+def cleanup_imported_types(h, string_cols, boolean_cols, date_cols)
   h.each do |k, v|
     if string_cols.include?(k)
       h[k] = v
     elsif boolean_cols.include?(k)
       h[k] = (v.to_i == 1)
+    elsif date_cols.include?(k)
+      begin
+        h[k] = Date.parse(v)
+      rescue
+        h[k] = nil
+      end
     else
       h[k] = v.to_i
     end
@@ -21,6 +27,7 @@ def import_model_data(spec)
   player_id_lookup = Hash[Player.all.map { |p| [p.code, p.id] }]
   string_cols = spec[:string_cols] || []
   bool_cols = spec[:bool_cols] || []
+  date_cols = spec[:date_cols] || []
   player_id_col_map = spec[:col_map] || {}
   File.open(csv_file, "r") do |fin|
     hdr_line = fin.readline
@@ -29,7 +36,7 @@ def import_model_data(spec)
     until fin.eof
       line = fin.readline
       vals = CSV.parse(line).flatten
-      value_hash = cleanup_imported_types(Hash[hdrs.zip(vals)], string_cols, bool_cols)
+      value_hash = cleanup_imported_types(Hash[hdrs.zip(vals)], string_cols, bool_cols, date_cols)
       klass.new(value_hash) do |obj|
         player_id_col_map.each do |in_col, out_col|
           puts "#{obj["code"]} => #{player_id_lookup[value_hash["code"]]}"
@@ -61,8 +68,13 @@ namespace :import do
                       col_map: { 'code': "player_id" })
   end
 
-  desc "import season summary csv data"
+  desc "import season results summary csv data"
   task seasons: :environment do
     import_model_data klass: Season
+  end
+
+  desc "import season club summary csv data"
+  task season_records: :environment do
+    import_model_data klass: SeasonRecord, string_cols: %w{club highestopps lowestopps}, date_cols: %w{highestdate lowestdate}
   end
 end

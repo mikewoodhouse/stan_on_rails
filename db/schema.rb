@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_161054) do
+ActiveRecord::Schema.define(version: 2021_05_10_164154) do
 
   create_table "performances", force: :cascade do |t|
     t.integer "player_id"
@@ -51,6 +51,29 @@ ActiveRecord::Schema.define(version: 2021_05_10_161054) do
     t.string "initial"
     t.string "firstname"
     t.boolean "active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "season_records", force: :cascade do |t|
+    t.integer "year"
+    t.string "club"
+    t.integer "runsscored"
+    t.integer "wicketslost"
+    t.integer "highest"
+    t.integer "highestwkts"
+    t.date "highestdate"
+    t.string "highestopps"
+    t.integer "lowest"
+    t.integer "lowestwkts"
+    t.date "lowestdate"
+    t.string "lowestopps"
+    t.integer "byes"
+    t.integer "legbyes"
+    t.integer "wides"
+    t.integer "noballs"
+    t.integer "ballsbowled"
+    t.integer "ballsreceived"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

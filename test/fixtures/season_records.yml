@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  club: MyString
+  runsscored: 1
+  wicketslost: 1
+  highest: 1
+  highestwkts: 1
+  highestdate: 2021-05-10
+  highestopps: MyString
+  lowest: 1
+  lowestwkts: 1
+  lowestdate: 2021-05-10
+  lowestopps: MyString
+  byes: 1
+  legbyes: 1
+  wides: 1
+  noballs: 1
+  ballsbowled: 1
+  ballsreceived: 1
+
+two:
+  year: 1
+  club: MyString
+  runsscored: 1
+  wicketslost: 1
+  highest: 1
+  highestwkts: 1
+  highestdate: 2021-05-10
+  highestopps: MyString
+  lowest: 1
+  lowestwkts: 1
+  lowestdate: 2021-05-10
+  lowestopps: MyString
+  byes: 1
+  legbyes: 1
+  wides: 1
+  noballs: 1
+  ballsbowled: 1
+  ballsreceived: 1
