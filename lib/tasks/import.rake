@@ -60,4 +60,9 @@ namespace :import do
     import_model_data(klass: Performance, string_cols: %w{code}, bool_cols: %w{highestnotout},
                       col_map: { 'code': "player_id" })
   end
+
+  desc "import season summary csv data"
+  task seasons: :environment do
+    import_model_data klass: Season
+  end
 end

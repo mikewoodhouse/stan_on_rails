@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_152729) do
+ActiveRecord::Schema.define(version: 2021_05_10_161054) do
 
   create_table "performances", force: :cascade do |t|
     t.integer "player_id"
@@ -51,6 +51,19 @@ ActiveRecord::Schema.define(version: 2021_05_07_152729) do
     t.string "initial"
     t.string "firstname"
     t.boolean "active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.integer "year"
+    t.integer "played"
+    t.integer "won"
+    t.integer "lost"
+    t.integer "drawn"
+    t.integer "tied"
+    t.integer "noresult"
+    t.integer "maxpossiblegames"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

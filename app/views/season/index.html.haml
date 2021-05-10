@@ -1,0 +1,22 @@
+%h1 Season#index
+%table
+    %thead
+        %th Year
+        %th Played
+        %th Won
+        %th Lost
+        %th Drawn
+        %th Tied
+        %th No Result
+        %th Max Poss. Games
+    %tbody
+        - for ssn in @seasons
+            %tr
+                %td= ssn.year
+                %td= ssn.played
+                %td= ssn.won
+                %td= ssn.lost
+                %td= ssn.drawn
+                %td= ssn.tied
+                %td= ssn.noresult
+                %td= ssn.maxpossiblegames
