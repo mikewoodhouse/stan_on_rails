@@ -8,3 +8,8 @@ I took over the preparation of the averages in the mid-1990s. When I was passed 
 Statistical compendia have been produced at various points, most recently at 50 and 60 years (these two by me, the last one still available for print-on-demand at https://www.lulu.com/account/projects/1kvpd24k)
 # The Web - "Stan"
 At time of writing, the 75-year anniversary looms and my day-to-day involvement with the club is on the wane; I'm not officially "retired" but I have little to contribute on the playing side (many might assert that it was ever thus, and the statistics sadly do not lie in this regard). It occurred to me that all this data (with the possible addition of some match-by-match records over the last 20-odd years) could be made available via a web app. Hence this project...
+## Data
+### Historic - Season-by-season
+The historic MS Access database tables have been exported in CSV format for import into SQLite. The files are checked into `public/csvdata`. Players were identified by four-letter codes, usually (but with many exceptions) constructed as three from the surname plus an initial, hence "Mike Bowers" is "bowm". I'm not sure yet whether to preserve that, at the cost of additional primary/foreign key specifications in the models, or to migrate towards using integer ids. At present `import.rake` applies `player.id` by cross-referencing to a player code/id lookup, so potentially at least either an id or code might be used.
+### Match Data
+I have a fair amount of detail at the match level from about 1995 onwards, available in the Excel spreadsheets I used from then to produce the season averages. Longer term, I have a (somewhat vague as yet) plan to import that data and make it available via Stan.
