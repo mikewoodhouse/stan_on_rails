@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def index
-    @players = Player.includes(:performances).all
+    @players = Player.includes(:performances).all.select { |p| p.appearances >= 10 }
   end
 
   def show
