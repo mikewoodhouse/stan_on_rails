@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "season#index"
+
   get "/players", to: "players#index"
   get "/players/appearances", to: "players#appearances"
   get "/players/:code", to: "players#show"
