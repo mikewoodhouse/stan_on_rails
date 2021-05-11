@@ -39,8 +39,6 @@ def import_model_data(spec)
       value_hash = cleanup_imported_types(Hash[hdrs.zip(vals)], string_cols, bool_cols, date_cols)
       klass.new(value_hash) do |obj|
         player_id_col_map.each do |in_col, out_col|
-          puts "#{obj["code"]} => #{player_id_lookup[value_hash["code"]]}"
-          puts "obj[#{out_col}] = player_id_lookup[obj[#{in_col}]] = player_id_lookup[#{obj[in_col]}] = #{player_id_lookup[obj[in_col]]}"
           obj[out_col] = player_id_lookup[obj[in_col]]
         end
         obj.save!
@@ -54,27 +52,12 @@ namespace :import do
   CSV_PATH = "#{Rails.public_path}/csvdata"
 
   desc "import all the data"
-  task everything: [:players, :performances] do
-  end
-
-  desc "import player csv data"
-  task players: :environment do
-    import_model_data(klass: Player, bool_cols: %w{active}, string_cols: %w{code surname initial firstname})
-  end
-
-  desc "import player performance csv data"
-  task performances: :environment do
-    import_model_data(klass: Performance, string_cols: %w{code}, bool_cols: %w{highestnotout},
-                      col_map: { 'code': "player_id" })
-  end
-
-  desc "import season results summary csv data"
-  task seasons: :environment do
+  task everything: :environment do
+    import_model_data klass: Player, bool_cols: %w{active}, string_cols: %w{code surname initial firstname}
+    import_model_data klass: Performance, string_cols: %w{code}, bool_cols: %w{highestnotout},
+                      col_map: { 'code': "player_id" }
     import_model_data klass: Season
-  end
-
-  desc "import season club summary csv data"
-  task season_records: :environment do
     import_model_data klass: SeasonRecord, string_cols: %w{club highestopps lowestopps}, date_cols: %w{highestdate lowestdate}
+    import_model_data klass: HundredPlus, string_cols: %w{code opponents}, date_cols: %w{date}, bool_cols: %w{notout}, col_map: { 'code': "player_id" }
   end
 end

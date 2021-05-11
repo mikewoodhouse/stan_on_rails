@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_164154) do
+ActiveRecord::Schema.define(version: 2021_05_11_160658) do
+
+  create_table "hundred_plus", force: :cascade do |t|
+    t.integer "year"
+    t.integer "player_id"
+    t.string "code"
+    t.date "date"
+    t.integer "score"
+    t.boolean "notout"
+    t.string "opponents"
+    t.integer "minutes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "performances", force: :cascade do |t|
     t.integer "player_id"

@@ -1,0 +1,15 @@
+%h2 Centuries
+%table
+    %thead
+        %tr
+            %th Runs
+            %th Player
+            %th Date
+            %th Opponents
+    %tbody
+        - @hundreds.each do |h|
+            %tr{class: cycle('odd', 'even')}
+                %td=h.runs
+                %td=h.player.name
+                %td=h.date
+                %td=h.opponents

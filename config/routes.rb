@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   get "/season_records", to: "season_record#index"
 
   get "/seasons", to: "season#index"
+
+  get "batting/hundred_plus"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
