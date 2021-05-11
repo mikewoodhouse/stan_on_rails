@@ -11,6 +11,6 @@ class Player < ApplicationRecord
   end
 
   def appearances
-    @apps ||= performances.sum { |p| p.matches }
+    @apps ||= performances.sum(&:matches)
   end
 end
