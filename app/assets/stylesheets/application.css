@@ -13,12 +13,36 @@
  *= require_tree .
  *= require_self
  */
+body {
+  background-color: #eeeebb;
+}
 tr.even {
-    background: #b0b0a0;
+  background: #b0b0a0;
 }
 tr.odd {
-    background: #d0d0c0;
+  background: #d0d0c0;
 }
 td.number {
-    text-align: right;
+  text-align: right;
+}
+ul.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(204, 167, 0);
+}
+li.menu {
+  float: left;
+}
+li.menu a {
+  display: block;
+  padding: 8px;
+  color: maroon;
+  text-align: center;
+  padding: 14px, 16px;
+  text-decoration: none;
+}
+li.menu a:hover {
+  background-color: gold;
 }

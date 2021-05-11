@@ -8,10 +8,12 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = favicon_link_tag asset_path('favicon.ico')
   %body
     %div
-      %h1 Stan
-      %h3= link_to 'players', 'players'
-      %h3= link_to 'season results', 'seasons'
-      %h3= link_to 'season records', 'season_records'
-    = yield
+      %img{src: asset_path('stan.png')}
+      %ul.menu
+        %li.menu= link_to 'players', 'players'
+        %li.menu= link_to 'season results', 'seasons'
+        %li.menu= link_to 'season records', 'season_records'
+  = yield
