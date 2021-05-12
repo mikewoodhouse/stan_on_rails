@@ -7,8 +7,8 @@
     %th Appearances
   %tbody
     - for player in @players
-      %tr
+      %tr{class: cycle('odd', 'even')}
         %td= link_to player.name, player.code
         %td= player.seasons[:from]
         %td= player.seasons[:to]
-        %td= player.appearances
+        %td.number= player.appearances
