@@ -9,7 +9,7 @@
     %tbody
         - @hundreds.each do |h|
             %tr{class: cycle('odd', 'even')}
-                %td=h.runs
-                %td=h.player.name
-                %td=h.date
-                %td=h.opponents
+                %td= h.runs
+                %td= h.player.name
+                %td= h.date
+                %td= h.opponents

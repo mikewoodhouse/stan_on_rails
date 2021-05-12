@@ -1,0 +1,11 @@
+%h2 Career Runs
+%table
+    %thead
+        %tr
+            %th Player
+            %th Runs
+    %tbody
+        - @run_makers.each do |p|
+            %tr{class: cycle('odd', 'even')}
+                %td= link_to p.name, "/players/#{p.code}"
+                %td.number= p.runs

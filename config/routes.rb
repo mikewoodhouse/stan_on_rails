@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get "/seasons", to: "season#index"
 
   get "batting/hundred_plus"
+  get "batting/most_runs"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
