@@ -1,21 +1,10 @@
 require "csv"
 
 class Importer
-  def cleanup_imported_types(h, string_cols, boolean_cols, date_cols)
-    h.each do |k, v|
-      if string_cols.include?(k)
-        h[k] = v
-      elsif boolean_cols.include?(k)
-        h[k] = (v.to_i == 1)
-      elsif date_cols.include?(k)
-        begin
-          h[k] = Date.parse(v)
-        rescue
-          h[k] = nil
-        end
-      else
-        h[k] = v.to_i
-      end
+  def fixup_types(h, cols, transform)
+    return unless cols
+    cols.each do |col|
+      h[col] = transform.call(h[col])
     end
   end
 
@@ -34,10 +23,15 @@ class Importer
       hdr_line = fin.readline
       hdrs = CSV.parse(hdr_line).flatten
       hdrs = hdrs.map { |h| h.downcase }
+      int_cols = hdrs - string_cols - bool_cols - date_cols
       until fin.eof
         line = fin.readline
         vals = CSV.parse(line).flatten
-        value_hash = cleanup_imported_types(Hash[hdrs.zip(vals)], string_cols, bool_cols, date_cols)
+        value_hash = Hash[hdrs.zip(vals)]
+        fixup_types value_hash, string_cols, ->(v) { v }
+        fixup_types value_hash, bool_cols, ->(v) { v.to_i == 1 }
+        fixup_types value_hash, date_cols, ->(v) { v ? Date.parse(v) : v }
+        fixup_types value_hash, int_cols, ->(v) { v.to_i }
         klass.new(value_hash) do |obj|
           player_id_col_map.each do |in_col, out_col|
             obj[out_col] = player_id_lookup[obj[in_col]]
