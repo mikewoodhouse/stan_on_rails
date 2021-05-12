@@ -1,0 +1,22 @@
+%h2 Career Batting Averages
+%p Minimum completed innings: 10
+%table
+    %thead
+        %tr
+            %th Player
+            %th Matches
+            %th Innings
+            %th Not Out
+            %th Highest
+            %th Runs
+            %th Average
+    %tbody
+        - @player_bat_aves.each do |p|
+            %tr{class: cycle('odd', 'even')}
+                %td= link_to p.name, "/players/#{p.code}"
+                %td.number= p.matches
+                %td.number= p.innings
+                %td.number= p.notout
+                %td.number= p.highest
+                %td.number= p.runsscored
+                %td.number= number_with_precision(p.batave, precision: 2)

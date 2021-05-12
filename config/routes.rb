@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   get "batting/hundred_plus"
   get "batting/most_runs"
+  get "batting/averages"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
