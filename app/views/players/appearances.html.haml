@@ -1,4 +1,12 @@
 %h1 Appearances
+
+=form_with url: players_appearances_url, method: :get do |form|
+  = form.label :min_matches, "Min matches: "
+  = form.text_field :min_matches, value: params[:min_matches] || 10
+  = form.submit "Refresh"
+
+%h3==#{@players.size} player records found
+
 %table
   %thead
     %th Name
@@ -9,6 +17,6 @@
     - for player in @players
       %tr{class: cycle('odd', 'even')}
         %td= link_to player.name, player.code
-        %td= player.seasons[:from]
-        %td= player.seasons[:to]
+        %td= player.from_yr
+        %td= player.to_yr
         %td.number= player.appearances
