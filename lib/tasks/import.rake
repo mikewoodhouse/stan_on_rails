@@ -1,16 +1,19 @@
 require "importer"
 
 namespace :import do
-  CSV_PATH = "#{Rails.public_path}/csvdata"
-
   desc "import all the data"
-  task everything: :environment do
-    importer = Importer.new
-    importer.import_model_data klass: Player, bool_cols: %w{active}, string_cols: %w{code surname initial firstname}
-    importer.import_model_data klass: Performance, string_cols: %w{code}, bool_cols: %w{highestnotout},
-                               col_map: { 'code': "player_id" }
-    importer.import_model_data klass: Season
-    importer.import_model_data klass: SeasonRecord, string_cols: %w{club highestopps lowestopps}, date_cols: %w{highestdate lowestdate}
-    importer.import_model_data klass: HundredPlus, string_cols: %w{code opponents}, date_cols: %w{date}, bool_cols: %w{notout}, col_map: { 'code': "player_id" }
+  task all: :environment do
+    {
+      Player => { bool_cols: %w{active}, string_cols: %w{code surname initial firstname} },
+      Performance => { string_cols: %w{code}, bool_cols: %w{highestnotout}, col_map: { 'code': "player_id" } },
+      Season => {},
+      SeasonRecord => { string_cols: %w{club highestopps lowestopps}, date_cols: %w{highestdate lowestdate} },
+      HundredPlus => { string_cols: %w{code opponents}, date_cols: %w{date}, bool_cols: %w{notout}, col_map: { 'code': "player_id" } },
+      BestBowling => { string_cols: %w{code opp}, date_cols: %w{date} },
+      Captain => { string_cols: %w{code}, input_filename: "Captains" },
+      Partnership => { string_cols: %w{bat1 bat2 opp}, date_cols: %w{date}, bool_cols: %w{bat1notout bat2notout undefeated} },
+    }.each do |klass, opts|
+      Importer.new(klass, opts).import
+    end
   end
 end

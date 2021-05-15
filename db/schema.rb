@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_160658) do
+ActiveRecord::Schema.define(version: 2021_05_14_172916) do
+
+  create_table "best_bowlings", force: :cascade do |t|
+    t.integer "year"
+    t.string "code"
+    t.date "date"
+    t.integer "inns"
+    t.integer "wkts"
+    t.integer "runs"
+    t.string "opp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "captains", force: :cascade do |t|
+    t.string "code"
+    t.integer "year"
+    t.integer "matches"
+    t.integer "won"
+    t.integer "lost"
+    t.integer "drawn"
+    t.integer "nodecision"
+    t.integer "tied"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "hundred_plus", force: :cascade do |t|
     t.integer "year"
@@ -21,6 +46,23 @@ ActiveRecord::Schema.define(version: 2021_05_11_160658) do
     t.boolean "notout"
     t.string "opponents"
     t.integer "minutes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "partnerships", force: :cascade do |t|
+    t.integer "year"
+    t.integer "wicket"
+    t.date "date"
+    t.integer "total"
+    t.boolean "undefeated"
+    t.string "bat1"
+    t.integer "bat1score"
+    t.boolean "bat1notout"
+    t.string "bat2"
+    t.integer "bat2score"
+    t.boolean "bat2notout"
+    t.string "opp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

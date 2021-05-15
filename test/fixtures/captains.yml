@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  year: 1
+  matches: 1
+  won: 1
+  lost: 1
+  drawn: 1
+  nodecision: 1
+  tied: 1
+
+two:
+  code: MyString
+  year: 1
+  matches: 1
+  won: 1
+  lost: 1
+  drawn: 1
+  nodecision: 1
+  tied: 1

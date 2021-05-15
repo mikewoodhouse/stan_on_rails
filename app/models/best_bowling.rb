@@ -1,0 +1,2 @@
+class BestBowling < ApplicationRecord
+end
