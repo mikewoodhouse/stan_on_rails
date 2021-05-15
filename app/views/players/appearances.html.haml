@@ -2,7 +2,9 @@
 
 =form_with url: players_appearances_url, method: :get do |form|
   = form.label :min_matches, "Min matches: "
-  = form.text_field :min_matches, value: params[:min_matches] || 10
+  = form.number_field :min_matches, value: params[:min_matches] || 10
+  = form.label :active_from, "Active from: "
+  = form.number_field :active_from, value: params[:active_from] || (Date.today.year - 10)
   = form.submit "Refresh"
 
 %h3==#{@players.size} player records found
