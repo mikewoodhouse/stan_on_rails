@@ -18,7 +18,7 @@
   %tbody
     - for player in @players
       %tr{class: cycle('odd', 'even')}
-        %td= link_to player.name, player.code
+        %td= link_to player.name, '/players/' + player.code
         %td= player.from_yr
         %td= player.to_yr
         %td.number= player.appearances
