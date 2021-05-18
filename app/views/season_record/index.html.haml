@@ -23,12 +23,12 @@
             %tr{class: cycle('odd', 'even')}
                 %td= yr
                 - ['TCC', 'Opp'].each do |club|
-                    %td= rec[club].runsscored
-                    %td= rec[club].wicketslost
+                    %td.number= rec[club].runsscored
+                    %td.number= rec[club].wicketslost
                     %td= rec[club].highest_match
                     %td= rec[club].lowest_match
                 - ['TCC', 'Opp'].each do |club|
-                    %td= rec[club].byes
-                    %td= rec[club].legbyes
-                    %td= rec[club].wides
-                    %td= rec[club].noballs
+                    %td.number= rec[club].byes
+                    %td.number= rec[club].legbyes
+                    %td.number= rec[club].wides
+                    %td.number= rec[club].noballs
