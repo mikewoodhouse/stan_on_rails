@@ -28,7 +28,7 @@
   %tbody
     - @performances.each do |perf|
       %tr{class: cycle('odd', 'even')}
-        %td.number= perf.year
+        %td.number= perf.year == 0 ? 'Total' : perf.year
         %td.number= perf.matches
         %td.number= perf.innings
         %td.number= perf.notout
@@ -50,26 +50,3 @@
         %td.number= perf.caughtwkt
         %td.number= perf.captain
         %td.number= perf.keptwicket
-    %tr{class: cycle('odd', 'even')}
-      %td TOTAL
-      %td.number= @total[:matches]
-      %td.number= @total[:innings]
-      %td.number= @total[:notout]
-      %td.number= @total[:high_score]
-      %td.number= @total[:runsscored]
-      %td.number= number_with_precision(@total[:bat_avg], precision: 2)
-      %td.number= @total[:fifties]
-      %td.number= @total[:hundreds]
-      %td.number= @total[:fours]
-      %td.number= @total[:sixes]
-      %td.number= @total[:overs_and_balls]
-      %td.number= @total[:maidens]
-      %td.number= @total[:runs]
-      %td.number= @total[:wickets]
-      %td.number= number_with_precision(@total[:bowl_avg], precision: 2)
-      %td.number= @total[:fivewktinn]
-      %td.number= @total[:caught]
-      %td.number= @total[:stumped]
-      %td.number= @total[:caughtwkt]
-      %td.number= @total[:captain]
-      %td.number= @total[:keptwicket]

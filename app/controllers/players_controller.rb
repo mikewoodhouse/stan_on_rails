@@ -22,10 +22,76 @@ class PlayersController < ApplicationController
   AND Max(f.year) >= ?
   }
 
+  PERF_SQL = %{
+  SELECT
+    year
+  , matches
+  , innings
+  , notout
+  , highest || CASE WHEN highestnotout = 1 THEN '*' ELSE '' END high_score
+  , runsscored
+  , fours
+  , sixes
+  , overs
+  , balls
+  , maidens
+  , wides
+  , noballs
+  , runs
+  , wickets
+  , fivewktinn
+  , caught
+  , stumped
+  , fifties
+  , hundreds
+  , fives
+  , caughtwkt
+  , captain
+  , keptwicket
+  FROM performances
+  WHERE player_id = :player_id
+  UNION
+  SELECT
+    'TOTAL'
+  , Sum(matches)
+  , Sum(innings)
+  , Sum(notout)
+  , (SELECT MAX(highest) FROM performances WHERE player_id = :player_id) ||
+    CASE (
+        SELECT Max(highestnotout)
+        FROM performances
+        WHERE player_id = :player_id
+        AND highest = (
+            SELECT Max(highest)
+            FROM performances
+            WHERE player_id = :player_id)
+    ) WHEN 1 THEN '*' ELSE '' END high_score
+  , Sum(runsscored)
+  , Sum(fours)
+  , Sum(sixes)
+  , Sum(overs)
+  , Sum(balls)
+  , Sum(maidens)
+  , Sum(wides)
+  , Sum(noballs)
+  , Sum(runs)
+  , Sum(wickets)
+  , Sum(fivewktinn)
+  , Sum(caught)
+  , Sum(stumped)
+  , Sum(fifties)
+  , Sum(hundreds)
+  , Sum(fives)
+  , Sum(caughtwkt)
+  , Sum(captain)
+  , Sum(keptwicket)
+  FROM performances
+  WHERE player_id = :player_id
+  }
+
   def show
     @player = Player.find_by_code(params[:code])
-    @performances = @player.performances
-    append_career_summary
+    @performances = Performance.find_by_sql [PERF_SQL, { :player_id => @player.id }]
   end
 
   def appearances
@@ -34,41 +100,5 @@ class PlayersController < ApplicationController
     active_from_year = params[:active_from] || Date.today.year - 10
     active_from_year = active_from_year.to_i
     @players = Player.find_by_sql(ALL_PLAYER_SQL, [min_matches, active_from_year])
-  end
-
-  def append_career_summary
-    highest, notout = -1, false
-    @performances.each do |perf|
-      if perf.highest > highest || (perf.highest == highest && perf.highestnotout)
-        highest, notout = perf.highest, perf.highestnotout
-      end
-    end
-
-    @total = {
-      matches: @performances.sum(&:matches),
-      innings: @performances.sum(&:innings),
-      notout: @performances.sum(&:notout),
-      high_score: highest.to_s + (notout ? "*" : ""),
-      runsscored: @performances.sum(&:runsscored),
-      fifties: @performances.sum(&:fifties),
-      hundreds: @performances.sum(&:hundreds),
-      fours: @performances.sum(&:fours),
-      sixes: @performances.sum(&:sixes),
-      maidens: @performances.sum(&:maidens),
-      runs: @performances.sum(&:runs),
-      wickets: @performances.sum(&:wickets),
-      fivewktinn: @performances.sum(&:fivewktinn),
-      caught: @performances.sum(&:caught),
-      stumped: @performances.sum(&:stumped),
-      caughtwkt: @performances.sum(&:caughtwkt),
-      captain: @performances.sum(&:captain),
-      keptwicket: @performances.sum(&:keptwicket),
-      overs: @performances.sum(&:overs),
-      balls: @performances.sum(&:balls),
-    }
-    @total[:bat_avg] = @total[:innings] > @total[:notout] ? @total[:runsscored] / (@total[:innings] - @total[:notout]) : ""
-    @total[:bowl_avg] = @total[:wickets] > 0 ? @total[:runs] / @total[:wickets] : ""
-    add_overs, balls = @total[:balls].divmod(6)
-    @total[:overs_and_balls] = "#{@total[:overs] + add_overs}.#{balls}"
   end
 end

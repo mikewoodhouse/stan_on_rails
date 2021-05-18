@@ -1,10 +1,6 @@
 class Performance < ApplicationRecord
   belongs_to :player, foreign_key: true, optional: true
 
-  def high_score
-    highest.to_s + (highestnotout ? "*" : "")
-  end
-
   def bat_avg
     return innings > notout ? (runsscored.to_f / (innings - notout)).round(2) : ""
   end
@@ -14,6 +10,7 @@ class Performance < ApplicationRecord
   end
 
   def overs_and_balls
-    "#{overs}.#{balls}"
+    add_overs, rem_balls = balls.divmod(6)
+    "#{(overs || 0) + add_overs}.#{rem_balls}"
   end
 end
