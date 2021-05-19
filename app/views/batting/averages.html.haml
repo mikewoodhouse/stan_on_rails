@@ -1,5 +1,9 @@
 %h2 Career Batting Averages
-%p Minimum completed innings: 10
+= form_with url: batting_averages_url, method: :get do |form|
+    = form.label :min_innings, "Minimum completed innings: "
+    = form.number_field :min_innings, value: params[:min_innings || 10]
+    = form.submit "Refresh"
+
 %table
     %thead
         %tr
