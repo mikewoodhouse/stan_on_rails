@@ -12,7 +12,7 @@
     %tbody
         - for ssn in @seasons
             %tr{class: cycle('odd', 'even')}
-                %td.number= ssn.year
+                %td.number= link_to ssn.year, "/season/averages/" + ssn.year.to_s
                 %td.number= ssn.played
                 %td.number= ssn.won
                 %td.number= ssn.lost

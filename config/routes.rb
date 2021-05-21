@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/season_records", to: "season_record#index"
 
   get "/seasons", to: "season#index"
+  get "season/averages/:year", to: "season#averages"
 
   get "batting/hundred_plus"
   get "batting/most_runs"

@@ -3,7 +3,6 @@ class Player < ApplicationRecord
   has_many :hundred_plus
 
   def name()
-    return surname + (firstname ? ", " + firstname :
-             +(initial ? ", " + initial : ""))
+    return player_name(self)
   end
 end

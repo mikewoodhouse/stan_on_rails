@@ -17,7 +17,7 @@
     %tbody
         - @player_bat_aves.each do |p|
             %tr{class: cycle('odd', 'even')}
-                %td= link_to p.name, "/players/#{p.code}"
+                %td= link_to player_name(p), "/players/#{p.code}"
                 %td.number= p.matches
                 %td.number= p.innings
                 %td.number= p.notout
