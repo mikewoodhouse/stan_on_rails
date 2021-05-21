@@ -5,7 +5,7 @@ class SeasonController < ApplicationController
 
   def averages
     @year = params[:year]
-    @perfs = Performance.find_by_sql [
+    rows = Performance.find_by_sql [
       %{
         SELECT
           p.surname
@@ -20,5 +20,9 @@ class SeasonController < ApplicationController
       },
       { :year => @year },
     ]
+    @perfs = {
+      included: rows.select { |perf| perf.innings - perf.notout >= 5 }.sort_by { |perf| -perf.bat_avg },
+      also: rows.select { |perf| perf.innings - perf.notout < 5 }.sort_by { |perf| perf.surname },
+    }
   end
 end

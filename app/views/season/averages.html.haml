@@ -13,10 +13,10 @@
             %th Runs
             %th Average
     %tbody
-        - @perfs.select{|p| p.innings - p.notout >= 5}.sort_by{|p| -p.bat_avg}.each_with_index do |p, pos|
+        - @perfs[:included].each_with_index do |p, pos|
             %tr
                 %td= pos
-                %td= link_to player_name(p), to: '/players/' + p.code
+                %td= link_to player_name(p), controller: "players", action: "show", code: p.code
                 %td.number= p.matches
                 %td.number= p.innings
                 %td.number= p.notout
@@ -25,7 +25,7 @@
                 %td.number= number_with_precision(p.bat_avg, precision: 2)
         %tr
             %td{colspan: 8} Also:
-        - @perfs.select{|p| p.innings - p.notout < 5}.sort_by{|p| p.surname}.each do |p|
+        - @perfs[:also].each do |p|
             %tr
                 %td &nbsp;
                 %td= link_to player_name(p), to: '/players/' + p.code
