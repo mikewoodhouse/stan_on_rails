@@ -10,22 +10,23 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = favicon_link_tag asset_path('favicon.ico')
   %body
-    %div
-      %img{src: asset_path('stan.png')}
-      %ul.menu
-        %li.menu= link_to 'Players', '/players'
-        %li.menu= link_to 'Season Results', '/seasons'
-        %li.menu= link_to 'Season Records', '/season_records'
-        %li.menu.dropdown
-          Batting
-          %div.dropdown-content
-            =link_to 'Career Average', '/batting/averages'
-            =link_to 'Career Runs', '/batting/most_runs'
-            =link_to 'Centuries', '/batting/hundred_plus'
-        %li.menu.dropdown
-          Bowling
-          %div.dropdown-content
-            =link_to 'Career Average', '/bowling/averages'
-            =link_to 'Career Wickets', '/bowling/most_wickets'
-            =link_to 'Five-Fors', '/bowling/five_fors'
-    = yield
+    %main
+      %div
+        %img{src: asset_path('stan.png')}
+        %ul.menu
+          %li.menu= link_to 'Players', '/players'
+          %li.menu= link_to 'Season Results', '/seasons'
+          %li.menu= link_to 'Season Records', '/season_records'
+          %li.menu.dropdown
+            Batting
+            %div.dropdown-content
+              =link_to 'Career Average', '/batting/averages'
+              =link_to 'Career Runs', '/batting/most_runs'
+              =link_to 'Centuries', '/batting/hundred_plus'
+          %li.menu.dropdown
+            Bowling
+            %div.dropdown-content
+              =link_to 'Career Average', '/bowling/averages'
+              =link_to 'Career Wickets', '/bowling/most_wickets'
+              =link_to 'Five-Fors', '/bowling/five_fors'
+      = yield
