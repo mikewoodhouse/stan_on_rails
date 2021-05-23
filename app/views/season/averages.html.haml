@@ -1,4 +1,7 @@
 %h1==Averages for #{@year} Season
+%div
+    =link_to "<<< #{@year.to_i - 1}", "/season/averages/#{@year.to_i - 1}"
+    =link_to "#{@year.to_i + 1} >>>", "/season/averages/#{@year.to_i + 1}"
 %h3 Batting
 %p Required: 5 completed innings
 %table
