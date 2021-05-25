@@ -10,23 +10,22 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = favicon_link_tag asset_path('favicon.ico')
   %body
-    %main
-      %div
-        %img{src: asset_path('stan.png')}
-        %ul.menu
-          %li.menu= link_to 'Players', '/players'
-          %li.menu= link_to 'Season Results', '/seasons'
-          %li.menu= link_to 'Season Records', '/season_records'
-          %li.menu.dropdown
-            Batting
-            %div.dropdown-content
-              =link_to 'Career Average', '/batting/averages'
-              =link_to 'Career Runs', '/batting/most_runs'
-              =link_to 'Centuries', '/batting/hundred_plus'
-          %li.menu.dropdown
-            Bowling
-            %div.dropdown-content
-              =link_to 'Career Average', '/bowling/averages'
-              =link_to 'Career Wickets', '/bowling/most_wickets'
-              =link_to 'Five-Fors', '/bowling/five_fors'
+    %header.main
+      =image_tag asset_path('stan.png'), alt: "Stan - The Trinity Oxley Cricket Club Statistical History"
+      %p The Trinity Oxley Cricket Club Statistical History
+    %section.content
+      %nav.side_nav
+        %ul
+          %li= link_to 'Players', '/players'
+          %li= link_to 'Season Results', '/seasons'
+          %li= link_to 'Season Records', '/season_records'
+          %li Batting
+          %li=link_to 'Career Average', '/batting/averages'
+          %li=link_to 'Career Runs', '/batting/most_runs'
+          %li=link_to 'Centuries', '/batting/hundred_plus'
+          %li Bowling
+          %li=link_to 'Career Average', '/bowling/averages'
+          %li=link_to 'Career Wickets', '/bowling/most_wickets'
+          %li=link_to 'Five-Fors', '/bowling/five_fors'
+    %main{class: controller.controller_name}
       = yield
