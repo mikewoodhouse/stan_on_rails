@@ -1,5 +1,3 @@
-%h1 Appearances
-
 =form_with url: players_appearances_url, method: :get do |form|
   = form.label :min_matches, "Min matches: "
   = form.number_field :min_matches, value: params[:min_matches] || 10

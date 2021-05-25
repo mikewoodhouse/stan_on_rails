@@ -1,10 +1,12 @@
 class SeasonController < ApplicationController
   def index
+    @page_title = "Season Result Summary"
     @seasons = Season.order("year DESC").all
   end
 
   def averages
     @year = params[:year]
+    @page_title = "Averages for #{@year} Season"
     rows = Performance.find_by_sql [
       %{
         SELECT
