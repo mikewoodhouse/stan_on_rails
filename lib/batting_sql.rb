@@ -32,6 +32,10 @@ BAT_AVE_SQL = %{
       WHEN Sum(b.notout) THEN 0.0
       ELSE Sum(Cast(b.runsscored AS REAL)) / (Sum(b.innings) - Sum(b.notout))
     END batave
+  , Sum(b.fours) fours
+  , Sum(b.sixes) sixes
+  , Sum(b.fifties) fifties
+  , Sum(b.hundreds) hundreds
   FROM
     players p
       INNER JOIN

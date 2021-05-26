@@ -6,6 +6,7 @@
 %table
     %thead
         %tr
+            %th &nbsp;
             %th Player
             %th Matches
             %th Innings
@@ -13,9 +14,14 @@
             %th Highest
             %th Runs
             %th Average
+            %th Fours
+            %th Sixes
+            %th Fifties
+            %th Hundreds
     %tbody
-        - @player_bat_aves.each do |p|
+        - @player_bat_aves.each_with_index do |p, pos|
             %tr{class: cycle('odd', 'even')}
+                %td.number= pos + 1
                 %td= link_to player_name(p), "/players/#{p.code}"
                 %td.number= p.matches
                 %td.number= p.innings
@@ -23,3 +29,7 @@
                 %td.number= p.highest
                 %td.number= p.runsscored
                 %td.number= number_with_precision(p.batave, precision: 2)
+                %td.number= p.fours
+                %td.number= p.sixes
+                %td.number= p.fifties
+                %td.number= p.hundreds
