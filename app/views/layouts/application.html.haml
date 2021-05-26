@@ -12,14 +12,15 @@
   %body
     %header.main
       =image_tag asset_path('stan.png'), alt: "Stan - The Trinity Oxley Cricket Club Statistical History"
-      %p The Trinity Oxley Cricket Club Statistical History
-      %h1= @page_title
+      %p The Trinity Oxley CC Statistical Maroon & Gold Mine
     %section.content
       %nav.side_nav
         %ul
-          %li= link_to 'Players', '/players'
-          %li= link_to 'Season Results', '/seasons'
-          %li= link_to 'Season Records', '/season_records'
+          %li Players
+          %li= link_to 'Appearances', '/players'
+          %li Seasons
+          %li= link_to 'Results', '/seasons'
+          %li= link_to 'Records', '/season_records'
           %li Batting
           %li=link_to 'Career Average', '/batting/averages'
           %li=link_to 'Career Runs', '/batting/most_runs'
@@ -28,5 +29,6 @@
           %li=link_to 'Career Average', '/bowling/averages'
           %li=link_to 'Career Wickets', '/bowling/most_wickets'
           %li=link_to 'Five-Fors', '/bowling/five_fors'
-    %main{class: controller.controller_name}
-      = yield
+      %main{class: controller.controller_name}
+        %h1= @page_title
+        = yield
