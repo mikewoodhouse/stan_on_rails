@@ -1,0 +1,31 @@
+= form_with url: bowling_averages_url, method: :get do |form|
+    = form.label :min_wickets, "Minimum wickets: "
+    = form.number_field :min_wickets, value: params[:min_wickets || 10]
+    = form.submit "Refresh"
+
+%table
+    %thead
+        %tr
+            %th &nbsp;
+            %th Player
+            %th Overs
+            %th Maidens
+            %th Runs
+            %th Wickets
+            %th Average
+            %th Strike Rate
+            %th Economy
+            %th Five-fors
+    %tbody
+        - @player_bowl_aves.each_with_index do |p, pos|
+            %tr{class: cycle('odd', 'even')}
+                %td.number= pos + 1
+                %td= link_to player_name(p), "/players/#{p.code}"
+                %td.number= overs_and_balls(p.overs, p.balls)
+                %td.number= p.maidens
+                %td.number= p.runs
+                %td.number= p.wickets
+                %td.number= number_with_precision(p.bowlave, precision: 2)
+                %td.number= number_with_precision(p.strike_rate, precision: 2)
+                %td.number= number_with_precision(p.economy, precision: 2)
+                %td.number= p.five_fors

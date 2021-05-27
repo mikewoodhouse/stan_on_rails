@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "season#index"
 
   get "/players", to: "players#appearances"
@@ -13,5 +14,8 @@ Rails.application.routes.draw do
   get "batting/hundred_plus"
   get "batting/most_runs"
   get "batting/averages"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get "bowling/averages"
+  get "bowling/wickets"
+  get "bowling/five_for"
 end
