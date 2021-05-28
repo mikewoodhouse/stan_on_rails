@@ -9,6 +9,7 @@ class BowlingController < ApplicationController
 
   def wickets
     @page_title = "Career Wickets"
+    @wicket_takers = Player.find_by_sql CAREER_WICKETS_SQL
   end
 
   def five_for

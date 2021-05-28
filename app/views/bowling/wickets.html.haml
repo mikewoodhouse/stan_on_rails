@@ -1,2 +1,13 @@
-%h1 Bowling#wickets
-%p Find me in app/views/bowling/wickets.html.haml
+%table
+    %thead
+        %tr
+            %th Player
+            %th Wickets
+    %tbody
+        - prev_wkt_count = 0
+        - @wicket_takers.each_with_index do |p, pos|
+            %tr{class: cycle('odd', 'even')}
+                %td.number= prev_wkt_count == p.wickets ? "" : pos
+                %td= link_to player_name(p), "/players/#{p.code}"
+                %td.number= p.wickets
+            -prev_wkt_count = p.wickets

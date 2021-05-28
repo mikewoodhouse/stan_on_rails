@@ -26,3 +26,23 @@ BOWL_AVE_SQL = %{
     Sum(b.wickets) >= :min_wickets
   ORDER BY bowlave ASC
 }
+
+CAREER_WICKETS_SQL = %{
+  SELECT
+    p.surname
+  , p.initial
+  , p.firstname
+  , p.code
+  , Sum(b.wickets) wickets
+  FROM
+    players p
+      INNER JOIN
+        performances b ON b.player_id = p.id
+  GROUP BY
+    p.surname
+  , p.initial
+  , p.firstname
+  , p.code
+  HAVING Sum(b.wickets) > 0
+  ORDER BY wickets DESC
+}
