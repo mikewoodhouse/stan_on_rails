@@ -1,2 +1,17 @@
-%h1 Bowling#five_for
-%p Find me in app/views/bowling/five_for.html.haml
+%p All instances of 6 or more wickets, plus 5-fors since 2003
+%table
+    %thead
+        %tr
+            %th Player
+            %th Wickets
+            %th Runs
+            %th Opponents
+            %th Date
+    %tbody
+        - @five_fors.each do |p|
+            %tr{class: cycle('odd', 'even')}
+                %td= link_to player_name(p), "/players/#{p.code}"
+                %td.number= p.wkts
+                %td.number= p.runs
+                %td= p.opp
+                %td= p.date

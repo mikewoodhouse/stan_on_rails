@@ -46,3 +46,24 @@ CAREER_WICKETS_SQL = %{
   HAVING Sum(b.wickets) > 0
   ORDER BY wickets DESC
 }
+
+FIVE_FOR_SQL = %{
+  SELECT
+    p.surname
+  , p.initial
+  , p.firstname
+  , p.code
+  , bb.year
+  , bb.date
+  , bb.wkts
+  , bb.runs
+  , bb.opp
+  FROM
+    players p
+      INNER JOIN
+        best_bowlings bb ON bb.code = p.code
+  ORDER BY
+    bb.wkts DESC
+  , bb.runs ASC
+  , bb.date
+}

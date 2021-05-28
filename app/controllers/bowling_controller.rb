@@ -14,5 +14,6 @@ class BowlingController < ApplicationController
 
   def five_for
     @page_title = "Best Bowling: 5 or more"
+    @five_fors = Player.find_by_sql FIVE_FOR_SQL
   end
 end
