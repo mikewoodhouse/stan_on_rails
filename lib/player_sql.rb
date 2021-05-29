@@ -19,6 +19,7 @@ ALL_PLAYER_SQL = %{
   , p.firstname
   HAVING Sum(f.matches) >= ?
   AND Max(f.year) >= ?
+  ORDER BY p.surname, p.firstname, p.initial
   }
 
 PERF_SQL = %{
