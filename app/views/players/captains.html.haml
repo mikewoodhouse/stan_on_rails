@@ -1,0 +1,23 @@
+%table
+  %thead
+    %th Name
+    %th From
+    %th To
+    %th Matches
+    %th Won
+    %th Lost
+    %th Drawn
+    %td Tied
+    %td N/D
+  %tbody
+    - for player in @players
+      %tr{class: cycle('odd', 'even')}
+        %td= link_to player_name(player), '/players/' + player.code
+        %td= player.from_yr
+        %td= player.to_yr
+        %td.number= player.matches
+        %td.number= player.won
+        %td.number= player.lost
+        %td.number= player.drawn
+        %td.number= player.tied
+        %td.number= player.nodecision

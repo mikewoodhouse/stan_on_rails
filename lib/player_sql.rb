@@ -87,3 +87,31 @@ PERF_SQL = %{
   FROM performances
   WHERE player_id = :player_id
   }
+
+CAPTAINS_SQL = %{
+  SELECT
+    p.id
+  , p.code
+  , p.surname
+  , p.initial
+  , p.firstname
+  , Min(c.year) from_yr
+  , Max(c.year) to_yr
+  , Sum(c.matches) matches
+  , Sum(c.won) won
+  , Sum(c.lost) lost
+  , Sum(c.drawn) drawn
+  , Sum(c.tied) tied
+  , Sum(c.nodecision) nodecision
+  FROM players p
+    JOIN captains c
+      ON c.code = p.code
+  GROUP BY
+    p.id
+  , p.code
+  , p.surname
+  , p.initial
+  , p.firstname
+  ORDER BY
+    matches DESC
+}

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get "/players", to: "players#appearances"
   get "/players/appearances", to: "players#appearances"
+  get "/players/captains", to: "players#captains"
   get "/players/:code", to: "players#show"
 
   get "/season_records", to: "season_record#index"

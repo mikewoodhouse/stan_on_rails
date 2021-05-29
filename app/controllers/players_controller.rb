@@ -15,4 +15,9 @@ class PlayersController < ApplicationController
     active_from_year = active_from_year.to_i
     @players = Player.find_by_sql(ALL_PLAYER_SQL, [min_matches, active_from_year])
   end
+
+  def captains
+    @page_title = "Captains"
+    @players = Player.find_by_sql CAPTAINS_SQL
+  end
 end
