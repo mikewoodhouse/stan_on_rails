@@ -14,13 +14,14 @@
  *= require_self
  */
 body {
-  background-color: #eeeebb;
+  background-color: #ffffcc;
 }
 
 /*
 see Agile Web Development With Rails 6, p 110
 */
 header.main {
+  background-color: #fff45f;
   text-align: center;
   @media (min-width: 30rem) {
     text-align: left;
@@ -93,10 +94,10 @@ nav {
 }
 
 tr.even {
-  background: #b0b0a0;
+  background: #c5d7d8;
 }
 tr.odd {
-  background: #d0d0c0;
+  background: #ececdf;
 }
 td.number {
   text-align: right;
