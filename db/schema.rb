@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_05_14_172916) do
 
   create_table "best_bowlings", force: :cascade do |t|
+    t.integer "player_id"
     t.integer "year"
     t.string "code"
     t.date "date"
@@ -22,9 +23,11 @@ ActiveRecord::Schema.define(version: 2021_05_14_172916) do
     t.string "opp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_best_bowlings_on_player_id"
   end
 
   create_table "captains", force: :cascade do |t|
+    t.integer "player_id"
     t.string "code"
     t.integer "year"
     t.integer "matches"
@@ -35,11 +38,12 @@ ActiveRecord::Schema.define(version: 2021_05_14_172916) do
     t.integer "tied"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_captains_on_player_id"
   end
 
   create_table "hundred_plus", force: :cascade do |t|
-    t.integer "year"
     t.integer "player_id"
+    t.integer "year"
     t.string "code"
     t.date "date"
     t.integer "score"
@@ -48,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_172916) do
     t.integer "minutes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_hundred_plus_on_player_id"
   end
 
   create_table "partnerships", force: :cascade do |t|
@@ -63,6 +68,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_172916) do
     t.integer "bat2score"
     t.boolean "bat2notout"
     t.string "opp"
+    t.integer "bat1_id"
+    t.integer "bat2_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -146,5 +153,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_172916) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "best_bowlings", "players"
+  add_foreign_key "captains", "players"
+  add_foreign_key "hundred_plus", "players"
   add_foreign_key "performances", "players"
 end

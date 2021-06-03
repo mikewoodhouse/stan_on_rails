@@ -14,6 +14,9 @@ class CreatePartnerships < ActiveRecord::Migration[6.1]
       t.boolean :bat2notout
       t.string :opp
 
+      t.integer :bat1_id
+      t.integer :bat2_id
+
       t.timestamps
     end
   end

@@ -1,8 +1,9 @@
 class CreateHundredPlus < ActiveRecord::Migration[6.1]
   def change
     create_table :hundred_plus do |t|
+      t.belongs_to :player, index: true, foreign_key: true
+
       t.integer :year
-      t.integer :player_id
       t.string :code
       t.date :date
       t.integer :score
