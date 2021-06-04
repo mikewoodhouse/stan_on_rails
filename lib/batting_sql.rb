@@ -26,8 +26,17 @@ BAT_AVE_SQL = %{
   , Sum(b.matches) matches
   , Sum(b.innings) innings
   , Sum(b.notout) notout
-  , Max(b.highest) highest
-  , Sum(runsscored) runsscored
+  , (SELECT Max(pf.highest) FROM performances pf WHERE pf.player_id = p.id) ||
+    CASE (
+        SELECT Max(f.highestnotout)
+        FROM performances f
+        WHERE f.player_id = p.id
+        AND f.highest = (
+            SELECT Max(ff.highest)
+            FROM performances ff
+            WHERE ff.player_id = p.id)
+    ) WHEN 1 THEN '*' ELSE '' END high_score
+  , Sum(b.runsscored) runsscored
   , CASE Sum(b.innings)
       WHEN Sum(b.notout) THEN 0.0
       ELSE Sum(Cast(b.runsscored AS REAL)) / (Sum(b.innings) - Sum(b.notout))

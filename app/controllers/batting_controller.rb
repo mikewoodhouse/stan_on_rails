@@ -13,6 +13,7 @@ class BattingController < ApplicationController
 
   def averages
     @page_title = "Career Batting Averages"
+    params[:min_innings] ||= 50
     min_innings = params[:min_innings].to_i
     @player_bat_aves = Player.find_by_sql [BAT_AVE_SQL, { :min_innings => min_innings }]
   end
