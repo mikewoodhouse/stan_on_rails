@@ -1,6 +1,7 @@
 # Stan (on Rails)
 The Trinity Oxley CC "Statistical Goldmine"
 These notes are partly for my own reference, partly with the notion that the app will at some point be passed to a younger, more handsome individual.
+Much of what is currently here is the result of an exercise to get myself familiar with Rails 6 (I was a few versions out of date) - at a slightly meta-level there's clearly much duplication: request begets query begets tabular output. I think there's probably a lot better way to go about this, which ought to be a lot more interesting to code...
 # Background
 The club has played since 1949. Unusually, perhaps, detailed records were kept from the start of matches played: scorebooks, filled in with pencil during the season, were carefully reconciled and inked-in (in fountain pen!) during the close season. Averages were lovingly calculated and transferred into glorious ledgers for historic data to be collated. Most of this acitivity was carried out by the original Secretary, one Stanley Oxley.
 # The Records
@@ -18,11 +19,8 @@ The historic MS Access database tables have been exported in CSV format for impo
 I have a fair amount of detail at the match level from about 1995 onwards, available in the Excel spreadsheets I used from then to produce the season averages. Longer term, I have a (somewhat vague as yet) plan to import that data and make it available via Stan.
 # To-Do List
 In no particular order...
-   1. A lot of the pages really need some parameterisation, filters, etc. For example, there are a ton of people who've played one match: we probably don't need to see those unless we demand to do so. Maybe a five-match minimum default?
-   2. Player performance career summary. Perhaps calculated when performance records are selected? In `Player`?
-   3. Finish the imports
-   4. Refactor the `import` routine, it's not very cohesive. Do individual tables really need their own tasks? Could be DRYer with just the specs being passed in turn to, perhaps an `Importer` object?
-   5. Lots more reports, ideally to cover at least the full set printed in the 60-year book (some additional data might need to be sourced for total coverage)
-   6. Look at migrating the whole thing to a SPA in some way. (Very blue-sky, this). Even further, could it be an even more static site (so potentially hosted somewhere like GitHub at minimal/no cost?) using something like this: https://phiresky.github.io/blog/2021/hosting-sqlite-databases-on-github-pages/
-   7. Match data (see above). How best to handle extract-transform-load, what structure to use, how to incorporate it into everyting else. Reconciliation issues?
-   8.
+* Look at migrating the whole thing to a SPA in some way. (Very blue-sky, this). Even further, could it be an even more static site (so potentially hosted somewhere like GitHub at minimal/no cost?) using something like this: https://phiresky.github.io/blog/2021/hosting-sqlite-databases-on-github-pages/
+* Does the data need to be in a SQL database at all? What would it look like as a (chunky) JSON file, I wonder?
+* A lot of the pages really need some parameterisation, filters, etc. For example, there are a ton of people who've played one match: we probably don't need to see those unless we demand to do so. Maybe a five-match minimum default?
+* Lots more reports, ideally to cover at least the full set printed in the 60-year book (some additional data might need to be sourced for total coverage)
+* Match data (see above). How best to handle extract-transform-load, what structure to use, how to incorporate it into everyting else. Reconciliation issues?
