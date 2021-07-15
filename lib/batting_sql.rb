@@ -4,6 +4,8 @@ TOTAL_RUNS_SQL = %{
   , p.initial
   , p.firstname
   , p.code
+  , Min(b.year) from_yr
+  , Max(b.year) to_yr
   , Sum(b.runsscored) runs
   FROM
     players p

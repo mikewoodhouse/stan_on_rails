@@ -1,10 +1,16 @@
 %table
     %thead
         %tr
+            %th &nbsp;
             %th Player
+            %th From 
+            %th To
             %th Runs
     %tbody
-        - @run_makers.each do |p|
+        - @run_makers.each_with_index do |p, idx|
             %tr{class: cycle('odd', 'even')}
+                %td.number= idx + 1
                 %td= link_to player_name(p), "/players/#{p.code}"
+                %td.number= p.from_yr 
+                %td.number= p.to_yr
                 %td.number= p.runs
