@@ -18,7 +18,7 @@
         %td= player.to_yr
         %td.number= player.seasons
         %td.number= player.matches
-        %td.number= player.won
+        %td.number= player.won.to_s + ' (' + number_to_percentage(player.pct_won, precision: 1) + ')'
         %td.number= player.lost
         %td.number= player.drawn
         %td.number= player.tied

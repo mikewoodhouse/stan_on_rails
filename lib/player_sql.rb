@@ -101,6 +101,7 @@ CAPTAINS_SQL = %{
   , Count(*) seasons
   , Sum(c.matches) matches
   , Sum(c.won) won
+  , Cast(Sum(c.won) AS REAL) / Sum(c.matches) * 100.0 pct_won
   , Sum(c.lost) lost
   , Sum(c.drawn) drawn
   , Sum(c.tied) tied
