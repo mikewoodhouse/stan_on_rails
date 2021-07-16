@@ -21,7 +21,7 @@
             %tbody
                 - @bat_perfs[:included].each_with_index do |p, pos|
                     %tr
-                        %td= pos + 1
+                        %td.number= pos + 1
                         %td= link_to player_name(p), controller: "players", action: "show", code: p.code
                         %td.number= p.matches
                         %td.number= p.innings
@@ -76,7 +76,7 @@
                     %td{colspan: 9} Also:
                 - @bowl_perfs[:also].each_with_index do |p, pos|
                     %tr
-                        %td.number= pos + 1
+                        %td &nbsp;
                         %td= link_to player_name(p), controller: "players", action: "show", code: p.code
                         %td.number= p.overs_and_balls
                         %td.number= p.maidens
