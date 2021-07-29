@@ -8,6 +8,8 @@ one:
   notout: false
   opponents: MyString
   minutes: 1
+  created_at: Time.current
+  updated_at: Time.current
 
 two:
   year: 1
@@ -17,3 +19,5 @@ two:
   notout: false
   opponents: MyString
   minutes: 1
+  created_at: Time.current
+  updated_at: Time.current
