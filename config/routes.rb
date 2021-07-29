@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   get "bowling/averages"
   get "bowling/wickets"
   get "bowling/five_for"
+
+  get "data/get/:dataset", to: "data#get"
 end
