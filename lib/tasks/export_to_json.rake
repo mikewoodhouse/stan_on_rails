@@ -2,7 +2,7 @@ def write_table_to_json(t)
   col_names = t.columns.map(&:name).reject! { |n| %w{created_at updated_at}.include?(n) }
   qry = "SELECT #{col_names.join(",")} FROM #{t.table_name}"
   rows = t.find_by_sql(qry)
-  File.open("#{t.name}.json", "w") do |f|
+  File.open("app/javascript/#{t.table_name}.json", "w") do |f|
     f.write rows.to_json
   end
 end
