@@ -1,7 +1,7 @@
 # Stan (on Rails)
 The Trinity Oxley CC "Statistical Goldmine"
 These notes are partly for my own reference, partly with the notion that the app will at some point be passed to a younger, more handsome individual.
-Much of what is currently here is the result of an exercise to get myself familiar with Rails 6 (I was a few versions out of date) - at a slightly meta-level there's clearly much duplication: request begets query begets tabular output. I think there's probably a lot better way to go about this, which ought to be a lot more interesting to code...
+Much of what is currently here is the result of an exercise to get myself familiar with Rails 6 (I was a few versions out of date) - at a slightly meta-level there's clearly much duplication: request begets query begets tabular output. I think there's probably a lot better way to go about this, which ought to be a lot more interesting to code, so there's now a branch where I'm starting to play with the idea.
 # Background
 The club has played since 1949. Unusually, perhaps, detailed records were kept from the start of matches played: scorebooks, filled in with pencil during the season, were carefully reconciled and inked-in (in fountain pen!) during the close season. Averages were lovingly calculated and transferred into glorious ledgers for historic data to be collated. Most of this acitivity was carried out by the original Secretary, one Stanley Oxley.
 # The Records
@@ -19,7 +19,7 @@ The historic MS Access database tables have been exported in CSV format for impo
 I have a fair amount of detail at the match level from about 1995 onwards, available in the Excel spreadsheets I used from then to produce the season averages. Longer term, I have a (somewhat vague as yet) plan to import that data and make it available via Stan.
 # To-Do List
 In no particular order...
-* Look at migrating the whole thing to a SPA in some way. (Very blue-sky, this). Even further, could it be an even more static site (so potentially hosted somewhere like GitHub at minimal/no cost?) using something like this: https://phiresky.github.io/blog/2021/hosting-sqlite-databases-on-github-pages/
+* Look at migrating the whole thing to a SPA in some way. (Very blue-sky, this). Even further, could it be an even more static site (so potentially hosted somewhere like GitHub at minimal/no cost?) using something like this: https://phiresky.github.io/blog/2021/hosting-sqlite-databases-on-github-pages/ or just pushing all the data into the browser as text (there's only a little over 1MB of historical data if we convert to JSON) and building the queries & results there?
 * Does the data need to be in a SQL database at all? What would it look like as a (chunky) JSON file, I wonder?
 * A lot of the pages really need some parameterisation, filters, etc. For example, there are a ton of people who've played one match: we probably don't need to see those unless we demand to do so. Maybe a five-match minimum default?
 * Lots more reports, ideally to cover at least the full set printed in the 60-year book (some additional data might need to be sourced for total coverage)
