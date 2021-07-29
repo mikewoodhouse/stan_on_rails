@@ -8,4 +8,8 @@ class DataController < ApplicationController
       }
     end
   end
+
+  def records
+    @page_title = "Statistical Loveliness"
+  end
 end

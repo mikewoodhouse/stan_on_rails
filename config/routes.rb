@@ -20,5 +20,6 @@ Rails.application.routes.draw do
   get "bowling/wickets"
   get "bowling/five_for"
 
+  get "records", to: "data#records"
   get "data/get/:dataset", to: "data#get"
 end
