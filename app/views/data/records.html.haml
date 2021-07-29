@@ -1,0 +1,43 @@
+#data
+
+:javascript
+    function tabulate(obj) {
+        col_names = []
+        for (let key in obj[0]) {
+            col_names.push(key)
+        }
+        let table = document.createElement('table')
+        let tr = table.insertRow(-1)
+        for (let i = 0; i < col_names.length; i++) {
+            let th = document.createElement('th')
+            th.innerHTML = col_names[i]
+            tr.appendChild(th)
+        }
+        for(let i = 0; i < obj.length; i++) {
+            tr = table.insertRow(-1)
+            for (let j = 0; j < col_names.length; j++) {
+                let cel = tr.insertCell(-1)
+                cel.innerHTML = obj[i][col_names[j]]
+            }
+        }
+        return table
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let elem = document.getElementById('data')
+        elem.innerHtml = ""
+
+        let xhttp = new XMLHttpRequest()
+
+        xhttp.onload = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                data = JSON.parse(this.responseText);
+                players = data.players;
+                elem.appendChild(tabulate(players));
+            }
+        }
+
+        xhttp.open("GET", "data/get/players", true)
+        xhttp.send()
+
+    })
