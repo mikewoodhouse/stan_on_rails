@@ -1,10 +1,12 @@
+require "db_query"
+
 class DataController < ApplicationController
   def get
-    dataset_name = params[:dataset]
-    j = JSON.parse(File.open(Rails.root + "app/javascript/#{dataset_name}.json", "r").read())
+    sql = DbQuery.new.send(params[:dataset].to_sym)
+    rows = ActiveRecord::Base.connection.exec_query(sql, "Players", [100, 2010])
     respond_to do |format|
       format.json {
-        render json: { "#{dataset_name}": j }
+        render json: { params[:dataset] => rows.to_a }
       }
     end
   end
