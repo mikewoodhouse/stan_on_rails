@@ -1,18 +1,4 @@
-class PlayersReport
-  class Field
-    def initialize(key, heading = nil, cls = nil)
-      @key, @heading, @cls = key, heading, cls
-    end
-
-    def to_h
-      {
-        key: @key,
-        heading: @heading,
-        cls: @cls,
-      }
-    end
-  end
-
+class PlayersReport < Report
   def execute
     @rows = ActiveRecord::Base.connection.exec_query(sql, "Players", [100, 2010])
   end
@@ -47,7 +33,7 @@ class PlayersReport
             ON lkup.id = p.id
         GROUP BY
             p.id
-        HAVING 
+        HAVING
             Sum(f.matches) >= $1
         AND Max(f.year) >= $2
         ORDER BY lkup.name
