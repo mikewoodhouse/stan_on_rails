@@ -1,7 +1,6 @@
 class PlayersReport
   def execute
     @rows = ActiveRecord::Base.connection.exec_query(sql, "Players", [100, 2010])
-    puts "returned #{@rows.to_a.size} rows"
   end
 
   def display_cols
