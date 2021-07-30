@@ -15,21 +15,73 @@
       %p The Trinity Oxley CC Statistical Maroon & Gold Mine
     %section.content
       %nav.side_nav
+        %span{style: "color: white;"}
+          Players
         %ul
-          %li Players
-          %li= link_to 'Appearances', '/players'
+          %li{onclick: 'getReport("players")'} Appearances
           %li= link_to 'Captains', '/players/captains'
-          %li Seasons
+        %span{style: "color: white;"}
+          Seasons
+        %ul
           %li= link_to 'Results', '/seasons'
           %li= link_to 'Records', '/season_records'
-          %li Batting
+        %span{style: "color: white;"}
+          Batting
+        %ul
           %li=link_to 'Career Average', '/batting/averages'
           %li=link_to 'Career Runs', '/batting/most_runs'
           %li=link_to 'Centuries', '/batting/hundred_plus'
-          %li Bowling
+        %span{style: "color: white;"}
+          Bowling
+        %ul
           %li=link_to 'Career Average', '/bowling/averages'
           %li=link_to 'Career Wickets', '/bowling/wickets'
-          %li=link_to 'Five-Fors', '/bowling/five_for'
-      %main{class: controller.controller_name}
-        %h1= @page_title
-        = yield
+          %li{onclick: 'getReport("best_bowling")'} Five wickets or more
+      %main
+        %h1#page_title Report appears here
+        #data
+
+:javascript
+    function tabulate(report) {
+        let cols = report.columns
+        let table = document.createElement('table')
+        let header = table.createTHead()
+        let tr = header.insertRow(-1)
+        for (let i = 0; i < cols.length; i++) {
+            let th = document.createElement('th')
+            th.innerHTML = cols[i].heading
+            tr.appendChild(th)
+        }
+        let body = table.createTBody()
+        for(let i = 0; i < report.data.length; i++) {
+            tr = body.insertRow(-1)
+            tr.className = i % 2 == 0 ? 'even' : 'odd'
+            for (let j = 0; j < cols.length; j++) {
+                let cel = tr.insertCell(-1)
+                cel.innerHTML = report.data[i][cols[j].key]
+                cel.className = cols[j].cls
+            }
+        }
+        return table
+    }
+
+    function getReport(report_name) {
+        let elem = document.getElementById('data')
+        elem.innerHtml = ""
+        let title = document.getElementById('page_title')
+        title.innerHtml = ""
+
+        let xhttp = new XMLHttpRequest()
+
+        xhttp.onload = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let report = JSON.parse(this.responseText);
+                title.innerText = report.title
+                elem.appendChild(tabulate(report));
+            }
+        }
+
+        xhttp.open("GET", "data/get/" + report_name, true)
+        xhttp.send()
+    }
+
