@@ -1,12 +1,15 @@
-require "db_query"
+REPORT_MAP = {
+  "players" => PlayersReport,
+}
 
 class DataController < ApplicationController
   def get
-    sql = DbQuery.new.send(params[:dataset].to_sym)
-    rows = ActiveRecord::Base.connection.exec_query(sql, "Players", [100, 2010])
+    report = REPORT_MAP[params[:dataset]].new
+    report.execute
+    puts report.to_h
     respond_to do |format|
       format.json {
-        render json: { params[:dataset] => rows.to_a }
+        render json: report.to_h
       }
     end
   end

@@ -1,11 +1,8 @@
 #data
 
 :javascript
-    function tabulate(obj) {
-        col_names = []
-        for (let key in obj[0]) {
-            col_names.push(key)
-        }
+    function tabulate(report) {
+        let col_names = report.display_cols
         let table = document.createElement('table')
         let tr = table.insertRow(-1)
         for (let i = 0; i < col_names.length; i++) {
@@ -13,11 +10,11 @@
             th.innerHTML = col_names[i]
             tr.appendChild(th)
         }
-        for(let i = 0; i < obj.length; i++) {
+        for(let i = 0; i < report.data.length; i++) {
             tr = table.insertRow(-1)
             for (let j = 0; j < col_names.length; j++) {
                 let cel = tr.insertCell(-1)
-                cel.innerHTML = obj[i][col_names[j]]
+                cel.innerHTML = report.data[i][col_names[j]]
             }
         }
         return table
@@ -32,8 +29,7 @@
         xhttp.onload = function() {
             if (this.readyState == 4 && this.status == 200) {
                 data = JSON.parse(this.responseText);
-                players = data.players;
-                elem.appendChild(tabulate(players));
+                elem.appendChild(tabulate(data));
             }
         }
 
