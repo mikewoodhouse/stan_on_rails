@@ -90,12 +90,15 @@ PERF_SQL = %{
   }
 
 CAPTAINS_SQL = %{
+  WITH player_lookup AS
+  (
+   SELECT id
+   , surname || ', ' || COALESCE(firstname, initial, '') AS name
+   FROM players
+  )
   SELECT
-    p.id
-  , p.code
-  , p.surname
-  , p.initial
-  , p.firstname
+    p.name
+  , p.id
   , Min(c.year) from_yr
   , Max(c.year) to_yr
   , Count(*) seasons
@@ -106,15 +109,12 @@ CAPTAINS_SQL = %{
   , Sum(c.drawn) drawn
   , Sum(c.tied) tied
   , Sum(c.nodecision) nodecision
-  FROM players p
+  FROM player_lookup p
     JOIN captains c
-      ON c.code = p.code
+      ON c.player_id = p.id
   GROUP BY
     p.id
-  , p.code
-  , p.surname
-  , p.initial
-  , p.firstname
+  , p.name
   ORDER BY
     matches DESC
 }
