@@ -1,10 +1,29 @@
 class PlayersReport
+  class Field
+    def initialize(key, heading = nil, cls = nil)
+      @key, @heading, @cls = key, heading, cls
+    end
+
+    def to_h
+      {
+        key: @key,
+        heading: @heading,
+        cls: @cls,
+      }
+    end
+  end
+
   def execute
     @rows = ActiveRecord::Base.connection.exec_query(sql, "Players", [100, 2010])
   end
 
-  def display_cols
-    %w{name from_yr to_yr appearances}
+  def columns
+    [
+      Field.new("name", "Name", ""),
+      Field.new("from_yr", "From", "year"),
+      Field.new("to_yr", "To", "year"),
+      Field.new("appearances", "Appearances", "number"),
+    ].map(&:to_h)
   end
 
   def sql
@@ -38,7 +57,7 @@ class PlayersReport
   def to_h
     {
       "title" => "Players",
-      "display_cols" => display_cols,
+      "columns" => columns,
       "data" => @rows.to_a,
     }
   end

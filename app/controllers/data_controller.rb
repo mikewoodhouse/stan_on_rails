@@ -1,5 +1,6 @@
 REPORT_MAP = {
   "players" => PlayersReport,
+  "best_bowling" => BestBowlingReport,
 }
 
 class DataController < ApplicationController

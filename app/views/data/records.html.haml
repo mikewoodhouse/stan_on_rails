@@ -2,19 +2,23 @@
 
 :javascript
     function tabulate(report) {
-        let col_names = report.display_cols
+        let cols = report.columns
         let table = document.createElement('table')
-        let tr = table.insertRow(-1)
-        for (let i = 0; i < col_names.length; i++) {
+        let header = table.createTHead()
+        let tr = header.insertRow(-1)
+        for (let i = 0; i < cols.length; i++) {
             let th = document.createElement('th')
-            th.innerHTML = col_names[i]
+            th.innerHTML = cols[i].heading
             tr.appendChild(th)
         }
+        let body = table.createTBody()
         for(let i = 0; i < report.data.length; i++) {
-            tr = table.insertRow(-1)
-            for (let j = 0; j < col_names.length; j++) {
+            tr = body.insertRow(-1)
+            tr.className = i % 2 == 0 ? 'even' : 'odd'
+            for (let j = 0; j < cols.length; j++) {
                 let cel = tr.insertCell(-1)
-                cel.innerHTML = report.data[i][col_names[j]]
+                cel.innerHTML = report.data[i][cols[j].key]
+                cel.className = cols[j].cls
             }
         }
         return table
@@ -33,7 +37,7 @@
             }
         }
 
-        xhttp.open("GET", "data/get/players", true)
+        xhttp.open("GET", "data/get/best_bowling", true)
         xhttp.send()
 
     })

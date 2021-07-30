@@ -95,7 +95,9 @@ nav {
     }
   }
 }
-
+thead {
+  background: #d9dadc;
+}
 tr.even {
   background: #c5d7d8;
 }
@@ -104,4 +106,10 @@ tr.odd {
 }
 td.number {
   text-align: right;
+}
+td.year {
+  text-align: center;
+}
+td.date {
+  text-align: center;
 }
