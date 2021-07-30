@@ -1,6 +1,7 @@
 global.tabulate = function(report) {
     let cols = report.columns
     let table = document.createElement('table')
+    table.id= 'report_table'
     let header = table.createTHead()
     let tr = header.insertRow(-1)
     for (let i = 0; i < cols.length; i++) {
@@ -22,22 +23,26 @@ global.tabulate = function(report) {
 }
 
 global.getReport = function (report_name) {
-    let elem = document.getElementById('data')
-    elem.innerHtml = ""
-    let title = document.getElementById('page_title')
-    title.innerHtml = ""
-
     let xhttp = new XMLHttpRequest()
 
     xhttp.onload = function () {
         if (this.readyState == 4 && this.status == 200) {
+            let elem = document.getElementById('data')
+            elem.innerHtml = ""
+            let title = document.getElementById('page_title')
+            title.innerHtml = ""
+
             let report = JSON.parse(this.responseText);
             title.innerText = report.title
-            elem.appendChild(tabulate(report));
+
+            if (existing = document.getElementById('report_table')) {
+                elem.replaceChild(tabulate(report), existing)
+            } else {
+                elem.appendChild(tabulate(report))
+            }
         }
     }
 
     xhttp.open("GET", "data/get/" + report_name, true)
     xhttp.send()
 }
-
