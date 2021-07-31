@@ -4,21 +4,23 @@ global.tabulate = function(report) {
     table.id= 'report_table'
     let header = table.createTHead()
     let tr = header.insertRow(-1)
-    for (let i = 0; i < cols.length; i++) {
+
+    cols.forEach((col) => {
         let th = document.createElement('th')
-        th.innerHTML = cols[i].heading
+        th.innerHTML = col.heading
         tr.appendChild(th)
-    }
+    })
+
     let body = table.createTBody()
-    for (let i = 0; i < report.data.length; i++) {
-        tr = body.insertRow(-1)
-        tr.className = i % 2 == 0 ? 'even' : 'odd'
-        for (let j = 0; j < cols.length; j++) {
+    report.data.forEach((row, index) => {
+        let tr = body.insertRow(-1)
+        tr.className = index % 2 == 0 ? 'even' : 'odd'
+        cols.forEach((col) => {
             let cel = tr.insertCell(-1)
-            cel.innerHTML = report.data[i][cols[j].key]
-            cel.className = cols[j].cls
-        }
-    }
+            cel.innerHTML = row[col.key]
+            cel.className = col.cls
+        })
+    })
     return table
 }
 
