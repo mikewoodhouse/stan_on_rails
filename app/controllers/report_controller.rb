@@ -2,6 +2,7 @@ REPORT_MAP = {
   "players" => PlayersReport,
   "best_bowling" => BestBowlingReport,
   "captains" => CaptainsReport,
+  "results" => SeasonResultsReport,
 }
 
 class ReportController < ApplicationController
