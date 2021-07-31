@@ -16,6 +16,7 @@ class Report
   def initialize
     @title = "No Title"
     @subtitle = ""
+    @columns = []
   end
 
   def execute(binds = [])
@@ -26,15 +27,11 @@ class Report
     ""
   end
 
-  def columns
-    []
-  end
-
   def to_h
     {
       "title" => @title,
       "subtitle" => @subtitle,
-      "columns" => columns,
+      "columns" => @columns.map(&:to_h),
       "data" => @rows.to_a,
     }
   end

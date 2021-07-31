@@ -2,19 +2,16 @@ class PlayersReport < Report
   def initialize
     super
     @title = "Players & Appearances"
-  end
-
-  def execute
-    super [100, 2000]
-  end
-
-  def columns
-    [
+    @columns = [
       Field.new("name", "Name", ""),
       Field.new("from_yr", "From", "year"),
       Field.new("to_yr", "To", "year"),
       Field.new("appearances", "Appearances", "number"),
-    ].map(&:to_h)
+    ]
+  end
+
+  def execute
+    super [100, 2000]
   end
 
   def sql

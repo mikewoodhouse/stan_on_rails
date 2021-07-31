@@ -3,10 +3,7 @@ class BestBowlingReport < Report
     super
     @title = "Best Bowling"
     @subtitle = "All instances of 6 wickets or more, plus 5 or more since 2003"
-  end
-
-  def columns
-    [
+    @columns = [
       Field.new("name", "Name"),
       Field.new("wkts", "Wickets", "number"),
       Field.new("runs", "Runs", "number"),

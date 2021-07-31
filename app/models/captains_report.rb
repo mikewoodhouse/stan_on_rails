@@ -2,21 +2,18 @@ class CaptainsReport < Report
   def initialize
     super
     @title = "Captains"
-  end
-
-  def columns
-    [
-      Field.new("name", "name", ""),
-      Field.new("from_yr", "from_yr", ""),
-      Field.new("to_yr", "to_yr", ""),
-      Field.new("seasons", "seasons", ""),
-      Field.new("matches", "matches", ""),
-      Field.new("won", "won", ""),
-      Field.new("pct_won", "pct_won", ""),
-      Field.new("lost", "lost", ""),
-      Field.new("drawn", "drawn", ""),
-      Field.new("tied", "tied", ""),
-      Field.new("nodecision", "nodecision", ""),
+    @columns = [
+      Field.new("name", "Name", ""),
+      Field.new("from_yr", "From", "year"),
+      Field.new("to_yr", "To", "year"),
+      Field.new("seasons", "Seasons", "number"),
+      Field.new("matches", "Matches", "number"),
+      Field.new("won", "Won", "number"),
+      Field.new("pct_won", "Won %", "number"),
+      Field.new("lost", "Lost", "number"),
+      Field.new("drawn", "Drawn", "number"),
+      Field.new("tied", "Tied", "number"),
+      Field.new("nodecision", "N/D", "number"),
     ]
   end
 
