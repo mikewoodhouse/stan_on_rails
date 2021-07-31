@@ -12,4 +12,30 @@ class Report
       }
     end
   end
+
+  def initialize
+    @title = "No Title"
+    @subtitle = ""
+  end
+
+  def execute(binds = [])
+    @rows = ActiveRecord::Base.connection.exec_query(sql, self.class.name, binds = binds)
+  end
+
+  def sql
+    ""
+  end
+
+  def columns
+    []
+  end
+
+  def to_h
+    {
+      "title" => @title,
+      "subtitle" => @subtitle,
+      "columns" => columns,
+      "data" => @rows.to_a,
+    }
+  end
 end

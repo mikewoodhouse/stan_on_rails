@@ -19,7 +19,7 @@
           Players
         %ul
           %li{onclick: "getReport('players')"} Appearances
-          %li= link_to 'Captains', '/players/captains'
+          %li{onclick: "getReport('captains')"} Captains
         %span{style: "color: white;"}
           Seasons
         %ul
@@ -39,4 +39,5 @@
           %li{onclick: 'getReport("best_bowling")'} Five wickets or more
       %main
         %h1#page_title Report appears here
+        %h5#subtitle
         #data

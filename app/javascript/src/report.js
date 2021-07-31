@@ -27,14 +27,14 @@ global.getReport = function (report_name) {
 
     xhttp.onload = function () {
         if (this.readyState == 4 && this.status == 200) {
-            let elem = document.getElementById('data')
-            elem.innerHtml = ""
-            let title = document.getElementById('page_title')
-            title.innerHtml = ""
-
             let report = JSON.parse(this.responseText);
-            title.innerText = report.title
 
+            let title = document.getElementById('page_title')
+            title.innerText = report.title
+            let subtitle = document.getElementById('subtitle')
+            subtitle.innerText = report.subtitle
+
+            let elem = document.getElementById('data')
             if (existing = document.getElementById('report_table')) {
                 elem.replaceChild(tabulate(report), existing)
             } else {

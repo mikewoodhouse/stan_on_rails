@@ -1,6 +1,8 @@
 class BestBowlingReport < Report
-  def execute
-    @rows = ActiveRecord::Base.connection.exec_query(sql, "BestBowling")
+  def initialize
+    super
+    @title = "Best Bowling"
+    @subtitle = "All instances of 6 wickets or more, plus 5 or more since 2003"
   end
 
   def columns
@@ -35,14 +37,6 @@ class BestBowlingReport < Report
         bb.wkts DESC
       , bb.runs ASC
       , bb.date
-    }
-  end
-
-  def to_h
-    {
-      "title" => "Best Bowling",
-      "columns" => columns,
-      "data" => @rows.to_a,
     }
   end
 end

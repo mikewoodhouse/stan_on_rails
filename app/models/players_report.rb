@@ -1,6 +1,11 @@
 class PlayersReport < Report
+  def initialize
+    super
+    @title = "Players & Appearances"
+  end
+
   def execute
-    @rows = ActiveRecord::Base.connection.exec_query(sql, "Players", [100, 2010])
+    super [100, 2000]
   end
 
   def columns
@@ -38,13 +43,5 @@ class PlayersReport < Report
         AND Max(f.year) >= $2
         ORDER BY lkup.name
         }
-  end
-
-  def to_h
-    {
-      "title" => "Players",
-      "columns" => columns,
-      "data" => @rows.to_a,
-    }
   end
 end
