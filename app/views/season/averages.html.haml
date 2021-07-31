@@ -1,0 +1,87 @@
+%div
+    =link_to "<<< #{@year.to_i - 1}", "/season/averages/#{@year.to_i - 1}"
+    =link_to "#{@year.to_i + 1} >>>", "/season/averages/#{@year.to_i + 1}"
+.float-container
+    .float-child
+        %h3 Batting
+        %p Required: 5 completed innings
+        %table
+            %thead
+                %tr
+                    %th &nbsp;
+                    %th Player
+                    %th Matches
+                    %th Innings
+                    %th Not Out
+                    %th Highest
+                    %th Runs
+                    %th Average
+                    %th Fours
+                    %th Sixes
+            %tbody
+                - @bat_perfs[:included].each_with_index do |p, pos|
+                    %tr
+                        %td.number= pos + 1
+                        %td= link_to player_name(p), controller: "players", action: "show", code: p.code
+                        %td.number= p.matches
+                        %td.number= p.innings
+                        %td.number= p.notout
+                        %td.number= highest_score(p.highest, p.highestnotout)
+                        %td.number= p.runsscored
+                        %td.number= number_with_precision(p.bat_avg, precision: 2)
+                        %td.number= p.fours
+                        %td.number= p.sixes
+                %tr
+                    %td{colspan: 8} Also:
+                - @bat_perfs[:also].each do |p|
+                    %tr
+                        %td &nbsp;
+                        %td= link_to player_name(p), to: '/players/' + p.code
+                        %td.number= p.matches
+                        %td.number= p.innings
+                        %td.number= p.notout
+                        %td.number= highest_score(p.highest, p.highestnotout)
+                        %td.number= p.runsscored
+                        %td.number= number_with_precision(p.bat_avg, precision: 2)
+                        %td.number= p.fours
+                        %td.number= p.sixes
+    .float-child
+        %h3 Bowling
+        %p Required: 10 wickets
+        %table
+            %thead
+                %tr
+                    %th &nbsp;
+                    %th Player
+                    %th Overs
+                    %th Maidens
+                    %th Runs
+                    %th Wickets
+                    %th Average
+                    %th Strike Rate
+                    %th Econony
+            %tbody
+                - @bowl_perfs[:included].each_with_index do |p, pos|
+                    %tr
+                        %td.number= pos + 1
+                        %td= link_to player_name(p), controller: "players", action: "show", code: p.code
+                        %td.number= p.overs_and_balls
+                        %td.number= p.maidens
+                        %td.number= p.runs
+                        %td.number= p.wickets
+                        %td.number= number_with_precision(p.bowl_avg, precision: 2)
+                        %td.number= number_with_precision(p.strike_rate, precision: 2)
+                        %td.number= number_with_precision(p.economy, precision: 2)
+                %tr
+                    %td{colspan: 9} Also:
+                - @bowl_perfs[:also].each_with_index do |p, pos|
+                    %tr
+                        %td &nbsp;
+                        %td= link_to player_name(p), controller: "players", action: "show", code: p.code
+                        %td.number= p.overs_and_balls
+                        %td.number= p.maidens
+                        %td.number= p.runs
+                        %td.number= p.wickets
+                        %td.number= number_with_precision(p.bowl_avg, precision: 2)
+                        %td.number= number_with_precision(p.strike_rate, precision: 2)
+                        %td.number= number_with_precision(p.economy, precision: 2)
