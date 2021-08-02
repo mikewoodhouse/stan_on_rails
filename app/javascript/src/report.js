@@ -26,13 +26,25 @@ global.tabulate = function (report) {
         cols.forEach((col) => {
             let cel = tr.insertCell(-1)
             cel.innerHTML = formatted(row[col.key], col.format)
+            if (col.key == "name") {
+                cel.addEventListener('click', function () {
+                    getPlayerPerformance(`${row.id}`)
+                })
+            }
             cel.className = col.cls
         })
     })
     return table
 }
 
-global.getReport = function (report_name) {
+function getPlayerPerformance(id) {
+    console.log(`getPlayerPerformance(${id})`)
+    let qry = `id=${id}`
+    console.log(id)
+    getReport('perf', qry)
+}
+
+global.getReport = function (report_name, qry="") {
     let xhttp = new XMLHttpRequest()
 
     xhttp.onload = function () {
@@ -53,6 +65,13 @@ global.getReport = function (report_name) {
         }
     }
 
-    xhttp.open("GET", "data/get/" + report_name, true)
+    let url = "data/get/" + report_name
+    if (qry.length > 0) {
+        url += '?' + qry
+    }
+
+    console.log(url)
+
+    xhttp.open("GET", url, true)
     xhttp.send()
 }

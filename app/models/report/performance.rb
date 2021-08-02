@@ -1,7 +1,8 @@
 class Report::Performance < Report
   def initialize(params)
     super
-    player_name = Player.find(params[:id].to_i).surname
+    @player_id = params[:id].to_i
+    player_name = Player.find(@player_id).display_name
     @title = "Player Performance History: #{player_name}"
     @subtitle = "Season by season"
     @columns = [
@@ -31,8 +32,7 @@ class Report::Performance < Report
 
   def execute
     puts "#execute"
-    puts @params
-    super [@params["id"].to_i]
+    super [@player_id]
   end
 
   def sql

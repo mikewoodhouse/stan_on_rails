@@ -3,7 +3,7 @@ class Report::Players < Report
     super
     @title = "Players & Appearances"
     @columns = [
-      Field.new("name", "Name", ""),
+      Field.new("name", "Name", "name"),
       Field.new("from_yr", "From", "year"),
       Field.new("to_yr", "To", "year"),
       Field.new("appearances", "Appearances", "number"),
@@ -23,7 +23,7 @@ class Report::Players < Report
             FROM players
         )
         SELECT
-            p.id
+          p.id
         , lkup.name
         , min(f.year) from_yr
         , max(f.year) to_yr

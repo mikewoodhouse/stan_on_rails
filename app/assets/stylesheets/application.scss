@@ -105,6 +105,10 @@ tr.even {
 tr.odd {
   background: #ececdf;
 }
+td.name {
+  color: blue;
+  cursor: pointer;
+}
 td.number {
   text-align: right;
 }
