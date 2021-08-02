@@ -12,15 +12,16 @@ class Report::Performance < Report
       Field.new("notout", "Not Out", "number"),
       Field.new("high_score", "Highest", "number"),
       Field.new("runsscored", "Runs", "number"),
-      Field.new("avg", "Average", "number", "2dp"),
+      Field.new("bat_avg", "Average", "number", "2dp"),
       Field.new("fours", "Fours", "number"),
       Field.new("sixes", "Sixes", "number"),
       Field.new("fifties", "Fifties", "number"),
       Field.new("hundreds", "Hundreds", "number"),
-      Field.new("balls", "Balls", "number"),
+      Field.new("overs", "Overs", "number"),
       Field.new("maidens", "Maidens", "number"),
       Field.new("runs", "Runs", "number"),
       Field.new("wickets", "Wickets", "number"),
+      Field.new("bowl_avg", "Average", "number", "2dp"),
       Field.new("fivewktinn", "Five+", "number"),
       Field.new("caught", "Caught", "number"),
       Field.new("stumped", "Stumped", "number"),
@@ -47,16 +48,19 @@ class Report::Performance < Report
       , case innings
           WHEN notout THEN null
           ELSE CAST(runsscored AS FLOAT) / (innings - notout)
-          END avg
+          END bat_avg
       , fours
       , sixes
-      , overs
-      , balls
+      , (overs * 6 + balls) / 6 + ((overs * 6 + balls) % 6) / 10.0 overs
       , maidens
       , wides
       , noballs
       , runs
       , wickets
+      , CASE wickets
+        WHEN 0 THEN NULL
+        ELSE CAST(runs AS FLOAT) / wickets
+        END bowl_avg
       , fivewktinn
       , caught
       , stumped
@@ -88,16 +92,19 @@ class Report::Performance < Report
       , CASE Sum(innings)
         WHEN Sum(notout) THEN null
         ELSE CAST(Sum(runsscored) AS FLOAT) / (Sum(innings) - Sum(notout))
-        END avg
+        END bat_avg
       , Sum(fours)
       , Sum(sixes)
-      , Sum(overs)
-      , Sum(balls)
+      , (Sum(overs) * 6 + Sum(balls)) / 6 + ((Sum(overs) * 6  + Sum(balls)) % 6) / 10.0 overs
       , Sum(maidens)
       , Sum(wides)
       , Sum(noballs)
       , Sum(runs)
       , Sum(wickets)
+      , CASE Sum(wickets)
+        WHEN 0 THEN NULL
+        ELSE CAST(Sum(runs) AS FLOAT) / Sum(wickets)
+        END bowl_avg
       , Sum(fivewktinn)
       , Sum(caught)
       , Sum(stumped)
