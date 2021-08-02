@@ -18,7 +18,8 @@ class Report::Wickets < Report
         SELECT id
         , surname || ', ' || COALESCE(firstname, initial, '') AS name
         FROM players
-    )    SELECT
+    )
+    SELECT
       p.id
     , lkup.name
     , Sum(b.wickets) wickets
