@@ -1,4 +1,4 @@
-global.tabulate = function (report) {
+tabulate = function (report) {
 
     formatted = function (val, fmt) {
         if (fmt == "pct") {
@@ -40,7 +40,7 @@ global.tabulate = function (report) {
     return table
 }
 
-function getPlayerPerformance(id) {
+getPlayerPerformance = function (id) {
     console.log(`getPlayerPerformance(${id})`)
     let qry = `id=${id}`
     console.log(id)
