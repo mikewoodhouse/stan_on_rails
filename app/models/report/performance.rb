@@ -22,6 +22,8 @@ class Report::Performance < Report
       Field.new("runs", "Runs", "number"),
       Field.new("wickets", "Wickets", "number"),
       Field.new("bowl_avg", "Average", "number", "2dp"),
+      Field.new("strike_rate", "Strike Rate", "number", "2dp"),
+      Field.new("econ", "Econ", "number", "2dp"),
       Field.new("fivewktinn", "Five+", "number"),
       Field.new("caught", "Caught", "number"),
       Field.new("stumped", "Stumped", "number"),
@@ -61,6 +63,11 @@ class Report::Performance < Report
         WHEN 0 THEN NULL
         ELSE CAST(runs AS FLOAT) / wickets
         END bowl_avg
+      , CASE wickets
+        WHEN 0 THEN NULL
+        ELSE CAST(overs * 6 + balls AS FLOAT) / wickets
+        END strike_rate
+      , runs / CAST(overs * 6 + balls AS FLOAT) * 6 econ
       , fivewktinn
       , caught
       , stumped
@@ -95,7 +102,7 @@ class Report::Performance < Report
         END bat_avg
       , Sum(fours)
       , Sum(sixes)
-      , (Sum(overs) * 6 + Sum(balls)) / 6 + ((Sum(overs) * 6  + Sum(balls)) % 6) / 10.0 overs
+      , Sum(overs * 6 + balls) / 6 + (Sum(overs * 6 + balls) % 6) / 10.0 overs
       , Sum(maidens)
       , Sum(wides)
       , Sum(noballs)
@@ -105,6 +112,11 @@ class Report::Performance < Report
         WHEN 0 THEN NULL
         ELSE CAST(Sum(runs) AS FLOAT) / Sum(wickets)
         END bowl_avg
+      , CASE Sum(wickets)
+        WHEN 0 THEN NULL
+        ELSE CAST(Sum(overs * 6 + balls) AS FLOAT) / Sum(wickets)
+        END strike_rate
+      , 6 * Sum(runs) / CAST(Sum(overs * 6 + balls) AS FLOAT) econ
       , Sum(fivewktinn)
       , Sum(caught)
       , Sum(stumped)
