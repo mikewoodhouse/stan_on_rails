@@ -1,4 +1,12 @@
-global.tabulate = function(report) {
+global.tabulate = function (report) {
+
+    formatted = function (val, fmt) {
+        if (fmt == "pct") {
+            return val.toFixed(2) + "%"
+        }
+        return val
+    }
+
     let cols = report.columns
     let table = document.createElement('table')
     table.id= 'report_table'
@@ -17,7 +25,7 @@ global.tabulate = function(report) {
         tr.className = index % 2 == 0 ? 'even' : 'odd'
         cols.forEach((col) => {
             let cel = tr.insertCell(-1)
-            cel.innerHTML = row[col.key]
+            cel.innerHTML = formatted(row[col.key], col.format)
             cel.className = col.cls
         })
     })

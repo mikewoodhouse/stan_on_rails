@@ -1,7 +1,7 @@
 class Report
   class Field
-    def initialize(key, heading = nil, cls = nil)
-      @key, @heading, @cls = key, heading, cls
+    def initialize(key, heading = nil, cls = nil, format = nil)
+      @key, @heading, @cls, @format = key, heading, cls, format
     end
 
     def to_h
@@ -9,6 +9,7 @@ class Report
         key: @key,
         heading: @heading,
         cls: @cls,
+        format: @format,
       }
     end
   end

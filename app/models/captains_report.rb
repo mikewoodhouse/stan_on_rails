@@ -9,7 +9,7 @@ class CaptainsReport < Report
       Field.new("seasons", "Seasons", "number"),
       Field.new("matches", "Matches", "number"),
       Field.new("won", "Won", "number"),
-      Field.new("pct_won", "Won %", "number"),
+      Field.new("pct_won", "Won %", "number", "pct"),
       Field.new("lost", "Lost", "number"),
       Field.new("drawn", "Drawn", "number"),
       Field.new("tied", "Tied", "number"),
