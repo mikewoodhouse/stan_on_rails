@@ -5,6 +5,9 @@ class Report::Wickets < Report
     @columns = [
       Field.new("name", "Name", "name"),
       Field.new("wickets", "Wickets", "number"),
+      Field.new("avg", "Average", "number", "2dp"),
+      Field.new("strike_rate", "S/R", "number", "2dp"),
+      Field.new("econ", "Econ", "number", "2dp"),
     ]
   end
 
@@ -19,6 +22,9 @@ class Report::Wickets < Report
       p.id
     , lkup.name
     , Sum(b.wickets) wickets
+    , CAST(Sum(b.runs) AS FLOAT) / Sum(b.wickets) avg
+    , CAST(Sum(b.overs * 6 + b.balls) AS FLOAT) / Sum(b.wickets) strike_rate
+    , Sum(runs) / CAST(Sum(b.overs * 6 + b.balls) AS FLOAT) * 6 econ
     FROM
       players p
         INNER JOIN
