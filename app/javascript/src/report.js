@@ -4,7 +4,7 @@ global.tabulate = function (report) {
         if (fmt == "pct") {
             return val.toFixed(2) + "%"
         }
-        if(fmt == "2dp") {
+        if (val && fmt == "2dp") {
             return val.toFixed(2)
         }
         return val

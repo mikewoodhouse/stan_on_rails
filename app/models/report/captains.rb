@@ -3,7 +3,7 @@ class Report::Captains < Report
     super
     @title = "Captains"
     @columns = [
-      Field.new("name", "Name", ""),
+      Field.new("name", "Name", "name"),
       Field.new("from_yr", "From", "year"),
       Field.new("to_yr", "To", "year"),
       Field.new("seasons", "Seasons", "number"),
