@@ -3,7 +3,7 @@ class Report::Performance < Report
     super
     @player_id = params[:id].to_i
     player_name = Player.find(@player_id).display_name
-    @title = "Player Performance History: #{player_name}"
+    @title = 'Player Performance History: #{player_name}'
     @subtitle = "Season by season"
     @columns = [
       Field.new("year", "Year", "year"),
@@ -12,11 +12,11 @@ class Report::Performance < Report
       Field.new("notout", "Not Out", "number"),
       Field.new("high_score", "Highest", "number"),
       Field.new("runsscored", "Runs", "number"),
+      Field.new("avg", "Average", "number", "2dp"),
       Field.new("fours", "Fours", "number"),
       Field.new("sixes", "Sixes", "number"),
       Field.new("fifties", "Fifties", "number"),
       Field.new("hundreds", "Hundreds", "number"),
-      Field.new("overs", "Overs", "number"),
       Field.new("balls", "Balls", "number"),
       Field.new("maidens", "Maidens", "number"),
       Field.new("runs", "Runs", "number"),
@@ -44,6 +44,10 @@ class Report::Performance < Report
       , notout
       , highest || CASE WHEN highestnotout = 1 THEN '*' ELSE '' END high_score
       , runsscored
+      , case innings
+          WHEN notout THEN null
+          ELSE runsscored / (innings - notout)
+          END avg
       , fours
       , sixes
       , overs
@@ -81,6 +85,10 @@ class Report::Performance < Report
                 WHERE player_id = $1)
         ) WHEN 1 THEN '*' ELSE '' END high_score
       , Sum(runsscored)
+      , CASE Sum(innings)
+        WHEN Sum(notout) THEN null
+        ELSE Sum(runsscored) / (Sum(innings) - Sum(notout))
+        END avg
       , Sum(fours)
       , Sum(sixes)
       , Sum(overs)
