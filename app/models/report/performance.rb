@@ -14,6 +14,8 @@ class Report::Performance < Report
       Field.new("runsscored", "Runs", "number"),
       Field.new("fours", "Fours", "number"),
       Field.new("sixes", "Sixes", "number"),
+      Field.new("fifties", "Fifties", "number"),
+      Field.new("hundreds", "Hundreds", "number"),
       Field.new("overs", "Overs", "number"),
       Field.new("balls", "Balls", "number"),
       Field.new("maidens", "Maidens", "number"),
@@ -22,11 +24,9 @@ class Report::Performance < Report
       Field.new("fivewktinn", "Five+", "number"),
       Field.new("caught", "Caught", "number"),
       Field.new("stumped", "Stumped", "number"),
-      Field.new("fifties", "Fifties", "number"),
-      Field.new("hundreds", "Hundreds", "number"),
       Field.new("caughtwkt", "Ct Wkt", "number"),
-      Field.new("captain", "Captain", "number"),
       Field.new("keptwicket", "Kept Wkt", "number"),
+      Field.new("captain", "Captain", "number"),
     ]
   end
 
