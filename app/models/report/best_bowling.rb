@@ -4,7 +4,7 @@ class Report::BestBowling < Report
     @title = "Best Bowling"
     @subtitle = "All instances of 6 wickets or more, plus 5 or more since 2003"
     @columns = [
-      Field.new("name", "Name"),
+      Field.new("name", "Name", "name"),
       Field.new("wkts", "Wickets", "number"),
       Field.new("runs", "Runs", "number"),
       Field.new("opp", "Opposition"),
@@ -22,6 +22,7 @@ class Report::BestBowling < Report
       )
       SELECT
         p.name
+      , p.id
       , bb.date
       , bb.wkts
       , bb.runs

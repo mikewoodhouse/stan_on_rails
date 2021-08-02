@@ -3,7 +3,7 @@ class Report::Performance < Report
     super
     @player_id = params[:id].to_i
     player_name = Player.find(@player_id).display_name
-    @title = 'Player Performance History: #{player_name}'
+    @title = "Player Performance History: #{player_name}"
     @subtitle = "Season by season"
     @columns = [
       Field.new("year", "Year", "year"),
@@ -46,7 +46,7 @@ class Report::Performance < Report
       , runsscored
       , case innings
           WHEN notout THEN null
-          ELSE runsscored / (innings - notout)
+          ELSE CAST(runsscored AS FLOAT) / (innings - notout)
           END avg
       , fours
       , sixes
@@ -87,7 +87,7 @@ class Report::Performance < Report
       , Sum(runsscored)
       , CASE Sum(innings)
         WHEN Sum(notout) THEN null
-        ELSE Sum(runsscored) / (Sum(innings) - Sum(notout))
+        ELSE CAST(Sum(runsscored) AS FLOAT) / (Sum(innings) - Sum(notout))
         END avg
       , Sum(fours)
       , Sum(sixes)
