@@ -24,18 +24,18 @@
           Seasons
         %ul
           %li{onclick: "getReport('results')"} Results
-          %li= link_to 'Records', '/season_records'
+          %li{onClick: "getReport('')"} Records
         %span{style: "color: white;"}
           Batting
         %ul
-          %li=link_to 'Career Average', '/batting/averages'
-          %li=link_to 'Career Runs', '/batting/most_runs'
-          %li=link_to 'Centuries', '/batting/hundred_plus'
+          %li{onClick: "getReport('')"} Career Average
+          %li{onClick: "getReport('')"} Career Runs
+          %li{onClick: "getReport('')"} Centuries
         %span{style: "color: white;"}
           Bowling
         %ul
-          %li=link_to 'Career Average', '/bowling/averages'
-          %li=link_to 'Career Wickets', '/bowling/wickets'
+          %li{onClick: "getReport('')"} Career Average
+          %li{onClick: "getReport('')"} Career Wickets
           %li{onclick: 'getReport("best_bowling")'} Five wickets or more
       %main
         %h1#page_title Report appears here
