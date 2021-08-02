@@ -1,5 +1,5 @@
 class Report::Captains < Report
-  def initialize
+  def initialize(params)
     super
     @title = "Captains"
     @columns = [

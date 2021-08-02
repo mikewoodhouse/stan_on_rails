@@ -1,5 +1,5 @@
 class Report::SeasonResults < Report
-  def initialize
+  def initialize(params)
     @title = "Result Summary - Season by Season"
     @columns = [
       Field.new("year", "Year", "year"),

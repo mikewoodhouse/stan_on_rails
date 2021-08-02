@@ -14,10 +14,11 @@ class Report
     end
   end
 
-  def initialize
+  def initialize(params)
     @title = "No Title"
     @subtitle = ""
     @columns = []
+    @params = params
   end
 
   def execute(binds = [])

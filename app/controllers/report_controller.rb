@@ -3,6 +3,7 @@ REPORT_MAP = {
   "best_bowling" => Report::BestBowling,
   "captains" => Report::Captains,
   "results" => Report::SeasonResults,
+  "perf" => Report::Performance,
 }
 
 class ReportController < ApplicationController
@@ -11,7 +12,7 @@ class ReportController < ApplicationController
   end
 
   def get
-    report = REPORT_MAP[params[:dataset]].new
+    report = REPORT_MAP[params[:dataset]].new(params)
     report.execute
     respond_to do |format|
       format.json {
