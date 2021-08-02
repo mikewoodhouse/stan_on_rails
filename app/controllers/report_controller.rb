@@ -4,6 +4,7 @@ REPORT_MAP = {
   "captains" => Report::Captains,
   "results" => Report::SeasonResults,
   "perf" => Report::Performance,
+  "wickets" => Report::Wickets,
 }
 
 class ReportController < ApplicationController
