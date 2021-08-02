@@ -1,4 +1,4 @@
-class PlayersReport < Report
+class Report::Players < Report
   def initialize
     super
     @title = "Players & Appearances"

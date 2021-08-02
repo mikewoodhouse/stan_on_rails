@@ -1,4 +1,4 @@
-class BestBowlingReport < Report
+class Report::BestBowling < Report
   def initialize
     super
     @title = "Best Bowling"

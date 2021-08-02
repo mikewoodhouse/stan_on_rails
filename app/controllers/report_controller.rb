@@ -1,8 +1,8 @@
 REPORT_MAP = {
-  "players" => PlayersReport,
-  "best_bowling" => BestBowlingReport,
-  "captains" => CaptainsReport,
-  "results" => SeasonResultsReport,
+  "players" => Report::Players,
+  "best_bowling" => Report::BestBowling,
+  "captains" => Report::Captains,
+  "results" => Report::SeasonResults,
 }
 
 class ReportController < ApplicationController

@@ -1,4 +1,4 @@
-class SeasonResultsReport < Report
+class Report::SeasonResults < Report
   def initialize
     @title = "Result Summary - Season by Season"
     @columns = [
