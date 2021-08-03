@@ -45,6 +45,9 @@ group :development do
   gem "rack-mini-profiler", "~> 2.0"
 
   gem "rufo", "~> 0.12.0"
+
+  gem "rubocop"
+  gem "rubocop-rails"
 end
 
 group :test do
