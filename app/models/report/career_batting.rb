@@ -2,7 +2,7 @@ class Report::CareerBatting < Report
   def initialize(params)
     super
     @title = "Career Batting Averages"
-    @subtitle = "Minimum innings: 50"
+    @subtitle = "Minimum innings: #{min_innings}"
     @columns = [
       Field.new("name", "Name", "name"),
       Field.new("matches", "Matches", "number"),
@@ -16,6 +16,14 @@ class Report::CareerBatting < Report
       Field.new("fifties", "Fifties", "number"),
       Field.new("hundreds", "Hundreds", "number"),
     ]
+  end
+
+  def execute()
+    super [min_innings]
+  end
+
+  def min_innings
+    @params[:min_innings] || 50
   end
 
   def sql
@@ -61,7 +69,7 @@ class Report::CareerBatting < Report
       p.id
     , lkup.name
     HAVING
-      Sum(b.innings) - Sum(b.notout) >= 50
+      Sum(b.innings) - Sum(b.notout) >= $1
     ORDER BY batave DESC
     }
   end

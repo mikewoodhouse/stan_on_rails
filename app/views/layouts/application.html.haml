@@ -15,29 +15,16 @@
       %p The Trinity Oxley CC Statistical Maroon & Gold Mine
     %section.content
       %nav.side_nav
-        %span{style: "color: white;"}
-          Players
         %ul
-          %li{onclick: "getReport('players')"} Appearances
-          %li{onclick: "getReport('captains')"} Captains
-        %span{style: "color: white;"}
-          Seasons
-        %ul
-          %li{onclick: "getReport('results')"} Results
-          %li{onClick: "getReport('')"} Records
-        %span{style: "color: white;"}
-          Batting
-        %ul
-          %li{onClick: "getReport('career_bat')"} Career Average
-          %li{onClick: "getReport('runs')"} Career Runs
-          %li{onClick: "getReport('')"} Centuries
-        %span{style: "color: white;"}
-          Bowling
-        %ul
-          %li{onClick: "getReport('')"} Career Average
-          %li{onClick: "getReport('wickets')"} Career Wickets
-          %li{onclick: 'getReport("best_bowling")'} Five wickets or more
+          - reports_menu.each do |item|
+            - if !item.first
+              - break
+            - if !item.last
+              %li.category= item.first
+            - if item.last
+              %li{onclick: "getReport('#{item.first}')"}= raw '&bullet; ' + item[1]
       %main
         %h1#page_title Report appears here
         %h5#subtitle
+        #filter
         #data

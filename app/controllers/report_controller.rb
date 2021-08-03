@@ -1,15 +1,6 @@
-REPORT_MAP = {
-  "players" => Report::Players,
-  "best_bowling" => Report::BestBowling,
-  "captains" => Report::Captains,
-  "results" => Report::SeasonResults,
-  "perf" => Report::Performance,
-  "wickets" => Report::Wickets,
-  "runs" => Report::Runs,
-  "career_bat" => Report::CareerBatting,
-}
-
 class ReportController < ApplicationController
+  before_action :cleanup_params
+
   def home
     render "home"
   end
@@ -21,6 +12,12 @@ class ReportController < ApplicationController
       format.json {
         render json: report.to_h
       }
+    end
+  end
+
+  def cleanup_params
+    if params[:min_innings]
+      params[:min_innings] = params[:min_innings].to_i
     end
   end
 end

@@ -40,6 +40,22 @@ tabulate = function (report) {
     return table
 }
 
+filtersFor = function (report, report_name) {
+    let form = document.createElement('div')
+    form.id = 'report_filter'
+    let input = document.createElement('input')
+    input.type = 'text'
+    input.name = 'input_item'
+    form.appendChild(input)
+    let button = document.createElement('button')
+    button.addEventListener('click', function () {
+        getReport(report_name, `min_innings=100`)
+    })
+    button.innerText = "Update"
+    form.appendChild(button)
+    return form
+}
+
 getPlayerPerformance = function (id) {
     console.log(`getPlayerPerformance(${id})`)
     let qry = `id=${id}`
@@ -59,11 +75,20 @@ global.getReport = function (report_name, qry="") {
             let subtitle = document.getElementById('subtitle')
             subtitle.innerText = report.subtitle
 
-            let elem = document.getElementById('data')
-            if (existing = document.getElementById('report_table')) {
-                elem.replaceChild(tabulate(report), existing)
+            let filter_target = document.getElementById('filter')
+            let filters = filtersFor(report, report_name)
+            if (existing = document.getElementById('report_filter')) {
+                filter_target.replaceChild(filters, existing)
             } else {
-                elem.appendChild(tabulate(report))
+                filter_target.appendChild(filters)
+            }
+
+            let report_target = document.getElementById('data')
+            let table = tabulate(report)
+            if (existing = document.getElementById('report_table')) {
+                report_target.replaceChild(table, existing)
+            } else {
+                report_target.appendChild(table)
             }
         }
     }
