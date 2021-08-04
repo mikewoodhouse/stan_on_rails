@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     ['wickets', 'Career Wickets', Report::Wickets],
     [nil, nil],
     ['perf', Report::Performance]
-  ]
+  ].freeze
   REPORT_MAP = {}.tap do |h|
     REPORTS_MENU.each do |item|
       break unless item.first

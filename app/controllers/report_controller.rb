@@ -18,7 +18,7 @@ class ReportController < ApplicationController
   end
 
   def cleanup_params
-    return unless param[:min_innings]
+    return unless params[:min_innings]
 
     params[:min_innings] = params[:min_innings].to_i
   end

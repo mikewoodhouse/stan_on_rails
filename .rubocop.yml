@@ -15,5 +15,8 @@ AllCops:
   - config/puma.rb
   - app/mailers/**/*
   - config/environments/**/*
+  - bin/**/*
+  - Gemfile
+  - Rakefile
 
 
