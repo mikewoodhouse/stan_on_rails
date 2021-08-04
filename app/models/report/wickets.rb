@@ -1,18 +1,21 @@
-class Report::Wickets < Report
-  def initialize(params)
-    super params
-    @title = "Career Wickets"
-    @columns = [
-      Field.new("name", "Name", "name"),
-      Field.new("wickets", "Wickets", "number"),
-      Field.new("avg", "Average", "number", "2dp"),
-      Field.new("strike_rate", "S/R", "number", "2dp"),
-      Field.new("econ", "Econ", "number", "2dp"),
-    ]
-  end
+# frozen_string_literal: true
 
-  def sql
-    %{
+module Report
+  class Wickets < Report::Base
+    def initialize(params)
+      super params
+      @title = 'Career Wickets'
+      @columns = [
+        Field.new('name', 'Name', 'name'),
+        Field.new('wickets', 'Wickets', 'number'),
+        Field.new('avg', 'Average', 'number', '2dp'),
+        Field.new('strike_rate', 'S/R', 'number', '2dp'),
+        Field.new('econ', 'Econ', 'number', '2dp')
+      ]
+    end
+
+    def sql
+      %{
     WITH player_lookup AS
     (
         SELECT id
@@ -38,5 +41,6 @@ class Report::Wickets < Report
     HAVING Sum(b.wickets) > 0
     ORDER BY wickets DESC
   }
+    end
   end
 end

@@ -1,21 +1,24 @@
-class Report::Players < Report
-  def initialize(params)
-    super
-    @title = "Players & Appearances"
-    @columns = [
-      Field.new("name", "Name", "name"),
-      Field.new("from_yr", "From", "year"),
-      Field.new("to_yr", "To", "year"),
-      Field.new("appearances", "Appearances", "number"),
-    ]
-  end
+# frozen_string_literal: true
 
-  def execute
-    super [100, 2000]
-  end
+module Report
+  class Players < Report::Base
+    def initialize(params)
+      super
+      @title = 'Players & Appearances'
+      @columns = [
+        Field.new('name', 'Name', 'name'),
+        Field.new('from_yr', 'From', 'year'),
+        Field.new('to_yr', 'To', 'year'),
+        Field.new('appearances', 'Appearances', 'number')
+      ]
+    end
 
-  def sql
-    %{
+    def execute
+      super [100, 2000]
+    end
+
+    def sql
+      %{
         WITH player_lookup AS
         (
             SELECT id
@@ -40,5 +43,6 @@ class Report::Players < Report
         AND Max(f.year) >= $2
         ORDER BY lkup.name
         }
+    end
   end
 end

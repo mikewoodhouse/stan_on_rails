@@ -1,23 +1,25 @@
+# frozen_string_literal: true
+
 class ReportController < ApplicationController
   before_action :cleanup_params
 
   def home
-    render "home"
+    render 'home'
   end
 
   def get
     report = REPORT_MAP[params[:dataset]].new(params)
     report.execute
     respond_to do |format|
-      format.json {
+      format.json do
         render json: report.to_h
-      }
+      end
     end
   end
 
   def cleanup_params
-    if params[:min_innings]
-      params[:min_innings] = params[:min_innings].to_i
-    end
+    return unless param[:min_innings]
+
+    params[:min_innings] = params[:min_innings].to_i
   end
 end

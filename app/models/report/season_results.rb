@@ -1,19 +1,22 @@
-class Report::SeasonResults < Report
-  def initialize(params)
-    @title = "Result Summary - Season by Season"
-    @columns = [
-      Field.new("year", "Year", "year"),
-      Field.new("played", "Played", "number"),
-      Field.new("won", "Won", "number"),
-      Field.new("lost", "Lost", "number"),
-      Field.new("drawn", "Drew", "number"),
-      Field.new("tied", "Tied", "number"),
-      Field.new("noresult", "N/D", "number"),
-    ]
-  end
+# frozen_string_literal: true
 
-  def sql
-    %{
+module Report
+  class SeasonResults < Report::Base
+    def initialize(_params)
+      @title = 'Result Summary - Season by Season'
+      @columns = [
+        Field.new('year', 'Year', 'year'),
+        Field.new('played', 'Played', 'number'),
+        Field.new('won', 'Won', 'number'),
+        Field.new('lost', 'Lost', 'number'),
+        Field.new('drawn', 'Drew', 'number'),
+        Field.new('tied', 'Tied', 'number'),
+        Field.new('noresult', 'N/D', 'number')
+      ]
+    end
+
+    def sql
+      %{
       SELECT
         year
       , played
@@ -37,5 +40,6 @@ class Report::SeasonResults < Report
       FROM seasons
       ORDER BY is_totals DESC, year DESC
     }
+    end
   end
 end

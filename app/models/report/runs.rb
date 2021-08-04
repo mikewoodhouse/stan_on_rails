@@ -1,17 +1,20 @@
-class Report::Runs < Report
-  def initialize(params)
-    super
-    @title = "Career Runs"
-    @columns = [
-      Field.new("name", "Name", "name"),
-      Field.new("from_yr", "From", "year"),
-      Field.new("to_yr", "To", "year"),
-      Field.new("runs", "Runs", "number"),
-    ]
-  end
+# frozen_string_literal: true
 
-  def sql
-    %{
+module Report
+  class Runs < Report::Base
+    def initialize(params)
+      super
+      @title = 'Career Runs'
+      @columns = [
+        Field.new('name', 'Name', 'name'),
+        Field.new('from_yr', 'From', 'year'),
+        Field.new('to_yr', 'To', 'year'),
+        Field.new('runs', 'Runs', 'number')
+      ]
+    end
+
+    def sql
+      %{
     WITH player_lookup AS
     (
         SELECT id
@@ -33,5 +36,6 @@ class Report::Runs < Report
       lkup.name
     ORDER BY runs DESC
     }
+    end
   end
 end

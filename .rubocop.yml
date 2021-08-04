@@ -1,0 +1,19 @@
+require:
+  - rubocop-rails
+Style/Documentation:
+  Enabled: false
+Layout/EndOfLine:
+  StyleGuide: '#lf'
+  EnforcedStyle: lf
+AllCops:
+  Exclude:
+  - db/**/*
+  - vendor/**/*
+  - test/**/*
+  - app/channels/**/*
+  - app/jobs/**/*
+  - config/puma.rb
+  - app/mailers/**/*
+  - config/environments/**/*
+
+

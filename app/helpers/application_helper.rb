@@ -1,12 +1,16 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def player_name(p)
-    return p.surname +
-             (p.firstname ?
-               ", " + p.firstname :
-               +(p.initial ? ", " + p.initial : ""))
+    p.surname +
+      (if p.firstname
+         ', ' + p.firstname
+       else
+         +(p.initial ? ', ' + p.initial : '')
+       end)
   end
 
   def highest_score(score, notout)
-    score.to_s + (notout ? "*" : "")
+    score.to_s + (notout ? '*' : '')
   end
 end

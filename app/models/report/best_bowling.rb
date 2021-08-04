@@ -1,25 +1,29 @@
-class Report::BestBowling < Report
-  def initialize(params)
-    super
-    @title = "Best Bowling"
-    @subtitle = "All instances of 6 wickets or more, plus 5 or more since 2003"
-    @columns = [
-      Field.new("name", "Name", "name"),
-      Field.new("wkts", "Wickets", "number"),
-      Field.new("runs", "Runs", "number"),
-      Field.new("opp", "Opposition"),
-      Field.new("date", "Date", "date"),
-    ]
-  end
+# frozen_string_literal: true
 
-  def sql
-    %{
+module Report
+  class BestBowling < Report::Base
+    def initialize(params)
+      super
+      @title = 'Best Bowling'
+      @subtitle = 'All instances of 6 wickets or more, plus 5 or more since 2003'
+      @columns = [
+        Field.new('name', 'Name', 'name'),
+        Field.new('wkts', 'Wickets', 'number'),
+        Field.new('runs', 'Runs', 'number'),
+        Field.new('opp', 'Opposition'),
+        Field.new('date', 'Date', 'date')
+      ]
+    end
+
+    def sql
+      %{
       WITH player_lookup AS
       (
           SELECT id
           , surname || ', ' || COALESCE(firstname, initial, '') AS name
           FROM players
       )
+
       SELECT
         p.name
       , p.id
@@ -36,5 +40,6 @@ class Report::BestBowling < Report
       , bb.runs ASC
       , bb.date
     }
+    end
   end
 end

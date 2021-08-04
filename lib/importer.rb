@@ -1,4 +1,6 @@
-require "csv"
+# frozen_string_literal: true
+
+require 'csv'
 
 class Importer
   CSV_PATH = "#{Rails.public_path}/csvdata"
@@ -14,13 +16,14 @@ class Importer
 
   def fixup_types(h, cols, transform)
     return unless cols
+
     cols.each do |col|
       h[col] = transform.call(h[col])
     end
   end
 
   def csv_filepath
-    file_name = (@input_filename || @klass.to_s) + ".txt"
+    file_name = (@input_filename || @klass.to_s) + '.txt'
     File.join(CSV_PATH, file_name)
   end
 
@@ -28,7 +31,7 @@ class Importer
     started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     @klass.destroy_all
     player_id_lookup = Hash[Player.all.map { |p| [p.code, p.id] }]
-    File.open(csv_filepath, "r") do |fin|
+    File.open(csv_filepath, 'r') do |fin|
       hdrs = CSV.parse(fin.readline).flatten.map { |h| h.downcase }
       int_cols = hdrs - @string_cols - @bool_cols - @date_cols
       until fin.eof

@@ -1,45 +1,47 @@
-class Report::Performance < Report
-  def initialize(params)
-    super
-    @player_id = params[:id].to_i
-    player_name = Player.find(@player_id).display_name
-    @title = "Player Performance History: #{player_name}"
-    @subtitle = "Season by season"
-    @columns = [
-      Field.new("year", "Year", "year"),
-      Field.new("matches", "Matches", "number"),
-      Field.new("innings", "Innings", "number"),
-      Field.new("notout", "Not Out", "number"),
-      Field.new("high_score", "Highest", "number"),
-      Field.new("runsscored", "Runs", "number"),
-      Field.new("bat_avg", "Average", "number", "2dp"),
-      Field.new("fours", "Fours", "number"),
-      Field.new("sixes", "Sixes", "number"),
-      Field.new("fifties", "Fifties", "number"),
-      Field.new("hundreds", "Hundreds", "number"),
-      Field.new("overs", "Overs", "number"),
-      Field.new("maidens", "Maidens", "number"),
-      Field.new("runs", "Runs", "number"),
-      Field.new("wickets", "Wickets", "number"),
-      Field.new("bowl_avg", "Average", "number", "2dp"),
-      Field.new("strike_rate", "Strike Rate", "number", "2dp"),
-      Field.new("econ", "Econ", "number", "2dp"),
-      Field.new("fivewktinn", "Five+", "number"),
-      Field.new("caught", "Caught", "number"),
-      Field.new("stumped", "Stumped", "number"),
-      Field.new("caughtwkt", "Ct Wkt", "number"),
-      Field.new("keptwicket", "Kept Wkt", "number"),
-      Field.new("captain", "Captain", "number"),
-    ]
-  end
+# frozen_string_literal: true
 
-  def execute
-    puts "#execute"
-    super [@player_id]
-  end
+module Report
+  class Performance < Report::Base
+    def initialize(params)
+      super
+      @player_id = params[:id].to_i
+      player_name = Player.find(@player_id).display_name
+      @title = "Player Performance History: #{player_name}"
+      @subtitle = 'Season by season'
+      @columns = [
+        Field.new('year', 'Year', 'year'),
+        Field.new('matches', 'Matches', 'number'),
+        Field.new('innings', 'Innings', 'number'),
+        Field.new('notout', 'Not Out', 'number'),
+        Field.new('high_score', 'Highest', 'number'),
+        Field.new('runsscored', 'Runs', 'number'),
+        Field.new('bat_avg', 'Average', 'number', '2dp'),
+        Field.new('fours', 'Fours', 'number'),
+        Field.new('sixes', 'Sixes', 'number'),
+        Field.new('fifties', 'Fifties', 'number'),
+        Field.new('hundreds', 'Hundreds', 'number'),
+        Field.new('overs', 'Overs', 'number'),
+        Field.new('maidens', 'Maidens', 'number'),
+        Field.new('runs', 'Runs', 'number'),
+        Field.new('wickets', 'Wickets', 'number'),
+        Field.new('bowl_avg', 'Average', 'number', '2dp'),
+        Field.new('strike_rate', 'Strike Rate', 'number', '2dp'),
+        Field.new('econ', 'Econ', 'number', '2dp'),
+        Field.new('fivewktinn', 'Five+', 'number'),
+        Field.new('caught', 'Caught', 'number'),
+        Field.new('stumped', 'Stumped', 'number'),
+        Field.new('caughtwkt', 'Ct Wkt', 'number'),
+        Field.new('keptwicket', 'Kept Wkt', 'number'),
+        Field.new('captain', 'Captain', 'number')
+      ]
+    end
 
-  def sql
-    %{
+    def execute
+      super [@player_id]
+    end
+
+    def sql
+      %{
       SELECT
         year
       , matches
@@ -129,5 +131,6 @@ class Report::Performance < Report
       FROM performances
       WHERE player_id = $1
     }
+    end
   end
 end
