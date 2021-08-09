@@ -5,13 +5,12 @@
         subtitle: Season by season
         key: performance
         menu: false
+        parameters: {'player_id': 1}
         columns:
         - field: year
           class: year
         - field: matches
-          class: number
         - field: innings
-          class: number
         sql: >
                 SELECT
                   year
@@ -104,6 +103,7 @@
       - title: Appearances
         key: appearances
         menu: Players
+        parameters: {'min_matches': 100, 'from_year': 2000}
         columns:
         - field: name
         - field: from_yr
@@ -113,7 +113,6 @@
           heading: To
           class: year
         - field: appearances
-          class: number
         sql: >
             WITH player_lookup AS
             (
@@ -153,26 +152,46 @@
           class: year
         - field: seasons
           heading: Seasons
-          class: number
         - field: matches
           heading: Matches
-          class: number
         - field: won
           heading: Won
-          class: number
         - field: pct_won
           heading: Won %
-          class: number
           format: pct
         - field: lost
           heading: Lost
-          class: number
         - field: drawn
           heading: Drawn
-          class: number
         - field: tied
           heading: Tied
-          class: number
         - field: nodecision
-          heading: N
-          class:  'number
+          heading: N/D
+        sql: >
+            WITH player_lookup AS
+            (
+              SELECT id
+              , surname || ', ' || COALESCE(firstname, initial, '') AS name
+              FROM players
+            )
+            SELECT
+              p.name
+            , p.id
+            , Min(c.year) from_yr
+            , Max(c.year) to_yr
+            , Count(*) seasons
+            , Sum(c.matches) matches
+            , Sum(c.won) won
+            , Cast(Sum(c.won) AS REAL) / Sum(c.matches) * 100.0 pct_won
+            , Sum(c.lost) lost
+            , Sum(c.drawn) drawn
+            , Sum(c.tied) tied
+            , Sum(c.nodecision) nodecision
+            FROM player_lookup p
+              JOIN captains c
+                ON c.player_id = p.id
+            GROUP BY
+              p.id
+            , p.name
+            ORDER BY
+              matches DESC

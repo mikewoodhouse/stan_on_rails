@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   def reports_menu
     Hash.new { |h, k| h[k] = [] }.tap do |h|
       report_defs.each do |item|
-        if item[:menu]
-          h[item[:menu]] << [item[:key], item[:title]]
-        end
+        h[item[:menu]] << [item[:key], item[:title]] if item[:menu]
       end
     end
   end

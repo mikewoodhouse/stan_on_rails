@@ -5,7 +5,5 @@ Rails.application.routes.draw do
 
   root to: 'report#home'
 
-  get 'data/get/:dataset', to: 'report#get'
-
   get 'report/:key', to: 'report#fetch'
 end

@@ -2,31 +2,23 @@
 
 module Report
   class Base
-    attr_accessor :title,  :subtitle,  :columns,  :sql
+    attr_accessor :title, :subtitle, :columns, :params, :parameters, :sql
 
     class << self
-      def from_spec(s, params)
-        r = new(params)
-        puts s
-        r.title = s.title
-        r.subtitle = s.subtitle
-        r.columns = s.columns
-        r.sql = s.sql
-        return r
+      def from_spec(s)
+        new.tap do |r|
+          r.title = s.title
+          r.subtitle = s.subtitle
+          r.columns = s.columns
+          r.parameters = s.parameters
+          r.sql = s.sql
+        end
       end
     end
 
-    def initialize(params)
-      @title = 'No Title'
-      @subtitle = ''
-      @columns = []
+    def execute(params = {})
       @params = params
-      @sql = ''
-    end
-
-    def execute(query_binds = [])
-      puts "sql=#{@sql}"
-      puts @title
+      query_binds = @parameters ? @parameters.map { |p, dflt| params[p] || dflt} : []
       @rows = ActiveRecord::Base.connection.exec_query(@sql, @title, query_binds)
     end
 
@@ -35,7 +27,8 @@ module Report
         'title' => @title,
         'subtitle' => @subtitle,
         'columns' => @columns.map(&:to_h),
-        'data' => @rows.to_a
+        'data' => @rows.to_a,
+        'params' => @params,
       }
     end
   end

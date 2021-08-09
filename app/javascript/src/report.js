@@ -60,7 +60,7 @@ getPlayerPerformance = function (id) {
     console.log(`getPlayerPerformance(${id})`)
     let qry = `id=${id}`
     console.log(id)
-    getReport('perf', qry)
+    getReport('performance', qry)
 }
 
 global.getReport = function (report_name, qry="") {

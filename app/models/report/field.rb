@@ -15,8 +15,8 @@ module Report
 
     def initialize(key, heading = nil, cls = nil, format = nil)
       @key = key
-      @heading = heading
-      @cls = cls
+      @heading = heading || key.capitalize
+      @cls = cls || (key == 'name' ? 'name' : 'number')
       @format = format
     end
 

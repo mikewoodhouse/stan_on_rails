@@ -7,28 +7,22 @@ class ReportController < ApplicationController
     render 'home'
   end
 
-  def get
-    report = REPORT_MAP[params[:dataset]].new(params)
-    report.execute
-    respond_to do |format|
-      format.json do
-        render json: report.to_h
-      end
-    end
+  def number?(n)
+    n.to_f.to_s == n.to_s || n.to_i.to_s == n.to_s
   end
 
   def cleanup_params
-    return unless params[:min_innings]
-
-    params[:min_innings] = params[:min_innings].to_i
+    params.each_key do |k|
+      params[k] = params[k].to_i if number?(params[k])
+    end
   end
 
   def fetch
     key = params[:key]
     report_def = report_defs.find { |s| s[:key] == key }
     spec = Report::Spec.from_h(report_def)
-    report = Report::Base.from_spec(spec, params)
-    report.execute([100, 2000])
+    report = Report::Base.from_spec(spec)
+    report.execute(params)
     respond_to do |format|
       format.json do
         render json: report.to_h
