@@ -22,4 +22,17 @@ class ReportController < ApplicationController
 
     params[:min_innings] = params[:min_innings].to_i
   end
+
+  def fetch
+    key = params[:key]
+    report_def = report_defs.find { |s| s[:key] == key }
+    spec = Report::Spec.from_h(report_def)
+    report = Report::Base.from_spec(spec, params)
+    report.execute([100, 2000])
+    respond_to do |format|
+      format.json do
+        render json: report.to_h
+      end
+    end
+  end
 end

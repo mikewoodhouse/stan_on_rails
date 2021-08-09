@@ -2,30 +2,18 @@
 
 class ApplicationController < ActionController::Base
   helper_method :reports_menu
-  REPORTS_MENU = [
-    ['Players', nil],
-    ['players', 'Appearances', Report::Players],
-    ['captains', 'Captains', Report::Captains],
-    ['Seasons', nil],
-    ['results', 'Results', Report::SeasonResults],
-    ['Batting', nil],
-    ['career_bat', 'Career Average', Report::CareerBatting],
-    ['runs', 'Career Runs', Report::Runs],
-    ['Bowling', nil],
-    ['best_bowling', 'Five wickets or more', Report::BestBowling],
-    ['wickets', 'Career Wickets', Report::Wickets],
-    [nil, nil],
-    ['perf', Report::Performance]
-  ].freeze
-  REPORT_MAP = {}.tap do |h|
-    REPORTS_MENU.each do |item|
-      break unless item.first
 
-      h[item.first] = item.last if item.last
+  def reports_menu
+    Hash.new { |h, k| h[k] = [] }.tap do |h|
+      report_defs.each do |item|
+        if item[:menu]
+          h[item[:menu]] << [item[:key], item[:title]]
+        end
+      end
     end
   end
 
-  def reports_menu
-    REPORTS_MENU
+  def report_defs
+    @defs = Rails.configuration.reports[:report_defs]
   end
 end

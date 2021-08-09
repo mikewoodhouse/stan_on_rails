@@ -2,21 +2,17 @@
 
 module Report
   class Base
-    class Field
-      def initialize(key, heading = nil, cls = nil, format = nil)
-        @key = key
-        @heading = heading
-        @cls = cls
-        @format = format
-      end
+    attr_accessor :title,  :subtitle,  :columns,  :sql
 
-      def to_h
-        {
-          key: @key,
-          heading: @heading,
-          cls: @cls,
-          format: @format
-        }
+    class << self
+      def from_spec(s, params)
+        r = new(params)
+        puts s
+        r.title = s.title
+        r.subtitle = s.subtitle
+        r.columns = s.columns
+        r.sql = s.sql
+        return r
       end
     end
 
@@ -25,14 +21,13 @@ module Report
       @subtitle = ''
       @columns = []
       @params = params
+      @sql = ''
     end
 
     def execute(query_binds = [])
-      @rows = ActiveRecord::Base.connection.exec_query(sql, self.class.name, query_binds)
-    end
-
-    def sql
-      ''
+      puts "sql=#{@sql}"
+      puts @title
+      @rows = ActiveRecord::Base.connection.exec_query(@sql, @title, query_binds)
     end
 
     def to_h

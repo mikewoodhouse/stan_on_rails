@@ -18,7 +18,7 @@ module Report
     end
 
     def sql
-      %{
+      @sql ||= %{
         WITH player_lookup AS
         (
             SELECT id

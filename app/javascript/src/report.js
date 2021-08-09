@@ -93,7 +93,7 @@ global.getReport = function (report_name, qry="") {
         }
     }
 
-    let url = "data/get/" + report_name
+    let url = "report/" + report_name
     if (qry.length > 0) {
         url += '?' + qry
     }

@@ -18,5 +18,6 @@ module Stan
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.reports = config_for(:report_defs)
   end
 end

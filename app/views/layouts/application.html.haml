@@ -16,13 +16,10 @@
     %section.content
       %nav.side_nav
         %ul
-          - reports_menu.each do |item|
-            - if !item.first
-              - break
-            - if !item.last
-              %li.category= item.first
-            - if item.last
-              %li{onclick: "getReport('#{item.first}')"}= raw '&bullet; ' + item[1]
+          - reports_menu.each do |category, items|
+            %li.category= category
+            - items.each do |item|
+              %li{onclick: "getReport('#{item.first}')"}= raw '&bullet; ' + item.last
       %main
         %h1#page_title Report appears here
         %h5#subtitle
