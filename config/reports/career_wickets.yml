@@ -1,21 +1,28 @@
-# frozen_string_literal: true
-
-module Report
-  class Wickets < Report::Base
-    def initialize(params)
-      super params
-      @title = 'Career Wickets'
-      @columns = [
-        Field.new('name', 'Name', 'name'),
-        Field.new('wickets', 'Wickets', 'number'),
-        Field.new('avg', 'Average', 'number', '2dp'),
-        Field.new('strike_rate', 'S/R', 'number', '2dp'),
-        Field.new('econ', 'Econ', 'number', '2dp')
-      ]
-    end
-
-    def sql
-      %{
+title: Career Wickets
+key: career_wickets
+menu: Bowling
+columns:
+- field: name
+  heading: Name
+  class: name
+- field: from_yr
+  heading: From
+  class: year
+- field: to_yr
+  heading: To
+  class: year
+- field: seasons
+- field: wickets
+- field: avg
+  heading: Average
+  format: 2dp
+- field: econ
+  heading: Economy
+  format: 2dp
+- field: strike_rate
+  heading: Strike Rate
+  format: 2dp
+sql: >
     WITH player_lookup AS
     (
         SELECT id
@@ -25,6 +32,9 @@ module Report
     SELECT
       p.id
     , lkup.name
+    , Min(b.year) from_yr
+    , Max(b.year) to_yr
+    , Sum(CASE b.overs + b.balls WHEN 0 THEN 0 ELSE 1 END) seasons
     , Sum(b.wickets) wickets
     , CAST(Sum(b.runs) AS FLOAT) / Sum(b.wickets) avg
     , CAST(Sum(b.overs * 6 + b.balls) AS FLOAT) / Sum(b.wickets) strike_rate
@@ -40,7 +50,3 @@ module Report
     , lkup.name
     HAVING Sum(b.wickets) > 0
     ORDER BY wickets DESC
-  }
-    end
-  end
-end

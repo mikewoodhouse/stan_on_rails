@@ -6,6 +6,13 @@ columns:
 - field: name
   heading: Name
   class: name
+- field: from_yr
+  heading: From
+  class: year
+- field: to_yr
+  heading: To
+  class: year
+- field: seasons
 - field: matches
   heading: Matches
 - field: innings
@@ -33,6 +40,9 @@ sql: >
     SELECT
       p.id
     , lkup.name
+    , Min(b.year) from_yr
+    , Max(b.year) to_yr
+    , Sum(CASE b.innings WHEN 0 THEN 0 ELSE 1 END) seasons
     , Sum(b.matches) matches
     , Sum(b.innings) innings
     , Sum(b.notout) notout
