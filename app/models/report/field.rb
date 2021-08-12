@@ -5,10 +5,10 @@ module Report
     class << self
       def from_h(h)
         new(
-          h[:field],
-          h[:heading],
-          h[:class],
-          h[:format],
+          h['field'],
+          h['heading'],
+          h['class'],
+          h['format'],
         )
       end
     end

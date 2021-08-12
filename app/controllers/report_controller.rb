@@ -7,8 +7,8 @@ class ReportController < ApplicationController
     render 'home'
   end
 
-  def number?(n)
-    n.to_f.to_s == n.to_s || n.to_i.to_s == n.to_s
+  def number?(number)
+    number.to_f.to_s == number.to_s || number.to_i.to_s == number.to_s
   end
 
   def cleanup_params
@@ -19,8 +19,7 @@ class ReportController < ApplicationController
 
   def fetch
     key = params[:key]
-    report_def = report_defs.find { |s| s[:key] == key }
-    spec = Report::Spec.from_h(report_def)
+    spec = report_specs.find { |s| s.key == key }
     report = Report::Base.from_spec(spec)
     report.execute(params)
     respond_to do |format|
