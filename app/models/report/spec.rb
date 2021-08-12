@@ -3,15 +3,15 @@
 module Report
   class Spec
     class << self
-      def from_h(h)
+      def from_h(repdef)
         new.tap do |s|
-          s.key = h['key']
-          s.title = h['title'] || h['key'].capitalize
-          s.subtitle = h['subtitle']
-          s.menu = h['menu']
-          s.columns = h['columns'].map { |c| Report::Field.from_h(c) }
-          s.parameters = h['parameters'] || []
-          s.sql = h['sql']
+          s.key = repdef['key']
+          s.title = repdef['title'] || repdef['key'].capitalize
+          s.subtitle = repdef['subtitle']
+          s.menu = repdef['menu']
+          s.columns = repdef['columns'].map { |c| Report::Field.from_h(c) }
+          s.parameters = repdef['parameters'] || []
+          s.sql = repdef['sql']
         end
       end
     end

@@ -3,12 +3,12 @@
 module Report
   class Field
     class << self
-      def from_h(h)
+      def from_h(coldef)
         new(
-          h['field'],
-          h['heading'],
-          h['class'],
-          h['format'],
+          coldef['field'],
+          coldef['heading'],
+          coldef['class'],
+          coldef['format'],
         )
       end
     end

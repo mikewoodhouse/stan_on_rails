@@ -1,0 +1,69 @@
+title: Career Batting
+key: career_batting
+menu: Batting
+parameters: {'min_innings': 50}
+columns:
+- field: name
+  heading: Name
+  class: name
+- field: matches
+  heading: Matches
+- field: innings
+  heading: Innings
+- field: notout
+  heading: Not Out
+- field: high_score
+  heading: Highest
+- field: runsscored
+  heading: Runs
+- field: batave
+  heading: Average
+  format: 2dp
+- field: fours
+- field: sixes
+- field: fifties
+- field: hundreds
+sql: >
+    WITH player_lookup AS
+    (
+        SELECT id
+        , surname || ', ' || COALESCE(firstname, initial, '') AS name
+        FROM players
+    )
+    SELECT
+      p.id
+    , lkup.name
+    , Sum(b.matches) matches
+    , Sum(b.innings) innings
+    , Sum(b.notout) notout
+    , (SELECT Max(pf.highest) FROM performances pf WHERE pf.player_id = p.id) ||
+      CASE (
+          SELECT Max(f.highestnotout)
+          FROM performances f
+          WHERE f.player_id = p.id
+          AND f.highest = (
+              SELECT Max(ff.highest)
+              FROM performances ff
+              WHERE ff.player_id = p.id)
+      ) WHEN 1 THEN '*' ELSE '' END high_score
+    , Sum(b.runsscored) runsscored
+    , CASE Sum(b.innings)
+        WHEN Sum(b.notout) THEN 0.0
+        ELSE Sum(Cast(b.runsscored AS REAL)) / (Sum(b.innings) - Sum(b.notout))
+      END batave
+    , Sum(b.fours) fours
+    , Sum(b.sixes) sixes
+    , Sum(b.fifties) fifties
+    , Sum(b.hundreds) hundreds
+    FROM
+      players p
+        INNER JOIN
+          performances b ON b.player_id = p.id
+        INNER JOIN
+            player_lookup lkup ON lkup.id = p.id
+    GROUP BY
+      p.id
+    , lkup.name
+    HAVING
+      Sum(b.innings) - Sum(b.notout) >= $1
+    ORDER BY batave DESC
