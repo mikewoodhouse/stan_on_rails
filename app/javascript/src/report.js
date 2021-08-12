@@ -58,7 +58,7 @@ filtersFor = function (report, report_name) {
 
 getPlayerPerformance = function (id) {
     console.log(`getPlayerPerformance(${id})`)
-    let qry = `id=${id}`
+    let qry = `player_id=${id}`
     console.log(id)
     getReport('performance', qry)
 }

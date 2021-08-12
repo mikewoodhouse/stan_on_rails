@@ -8,6 +8,41 @@ columns:
   class: year
 - field: matches
 - field: innings
+- field: notout
+  heading: Not Out
+- field: high_score
+  heading: Highest
+- field: runsscored
+  heading: Runs
+- field: bat_avg
+  heading: Average
+  format: 2dp
+- field: fours
+- field: sixes
+- field: overs
+- field: maidens
+- field: runs
+- field: wickets
+- field: bowl_avg
+  heading: Average
+  format: 2dp
+- field: econ
+  format: 2dp
+- field: strike_rate
+  heading: Strike Rate
+  format: 2dp
+- field: fivewktinn
+  heading: Five-for+
+- field: caught
+- field: stumped
+- field: fifties
+- field: hundreds
+- field: fives
+- field: caughtwkt
+  heading: Ct Wkt
+- field: captain
+- field: keptwicket
+  heading: Kept Wkt
 sql: >
         SELECT
           year
@@ -24,8 +59,6 @@ sql: >
         , sixes
         , (overs * 6 + balls) / 6 + ((overs * 6 + balls) % 6) / 10.0 overs
         , maidens
-        , wides
-        , noballs
         , runs
         , wickets
         , CASE wickets
@@ -73,8 +106,6 @@ sql: >
         , Sum(sixes)
         , Sum(overs * 6 + balls) / 6 + (Sum(overs * 6 + balls) % 6) / 10.0 overs
         , Sum(maidens)
-        , Sum(wides)
-        , Sum(noballs)
         , Sum(runs)
         , Sum(wickets)
         , CASE Sum(wickets)

@@ -1,0 +1,37 @@
+title: Result Summary - Season by Season
+menu: Matches
+key: season_results
+columns:
+- field: year
+  class: year
+- field: played
+- field: won
+- field: lost
+- field: drawn
+  heading: Drew
+- field: tied
+- field: noresult
+  heading: N/R
+sql: >
+      SELECT
+        year
+      , played
+      , won
+      , lost
+      , drawn
+      , tied
+      , noresult
+      , 0 is_totals
+      FROM seasons
+      UNION
+      SELECT
+        'Total' year
+      , Sum(played) played
+      , Sum(won) won
+      , Sum(lost) lost
+      , Sum(drawn) drawn
+      , Sum(tied) tied
+      , Sum(noresult) noresult
+      , 1 is_totals
+      FROM seasons
+      ORDER BY is_totals DESC, year DESC
