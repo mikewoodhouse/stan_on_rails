@@ -1,3 +1,13 @@
+
+var report = null;
+
+sortReportData = function (sort_key) {
+    report.data.sort(function (a, b) {
+        return a[sort_key] - b[sort_key]
+    })
+    putTable(tabulate(report))
+}
+
 tabulate = function (report) {
 
     formatted = function (val, fmt) {
@@ -19,6 +29,11 @@ tabulate = function (report) {
     cols.forEach((col) => {
         let th = document.createElement('th')
         th.innerHTML = col.heading
+        if(col.cls == "number") {
+            th.addEventListener('click', function () {
+                sortReportData(col.key)
+            })
+        }
         tr.appendChild(th)
     })
 
@@ -63,12 +78,21 @@ getPlayerPerformance = function (id) {
     getReport('performance', qry)
 }
 
+putTable = function (table) {
+    let report_target = document.getElementById('data')
+    if (existing = document.getElementById('report_table')) {
+        report_target.replaceChild(table, existing)
+    } else {
+        report_target.appendChild(table)
+    }
+}
+
 global.getReport = function (report_name, qry="") {
     let xhttp = new XMLHttpRequest()
 
     xhttp.onload = function () {
         if (this.readyState == 4 && this.status == 200) {
-            let report = JSON.parse(this.responseText);
+            report = JSON.parse(this.responseText);
 
             let title = document.getElementById('page_title')
             title.innerText = report.title
@@ -83,13 +107,7 @@ global.getReport = function (report_name, qry="") {
                 filter_target.appendChild(filters)
             }
 
-            let report_target = document.getElementById('data')
-            let table = tabulate(report)
-            if (existing = document.getElementById('report_table')) {
-                report_target.replaceChild(table, existing)
-            } else {
-                report_target.appendChild(table)
-            }
+            putTable(tabulate(report))
         }
     }
 

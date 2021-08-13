@@ -13,6 +13,7 @@ columns:
   class: year
 - field: seasons
 - field: wickets
+- field: runs
 - field: avg
   heading: Average
   format: 2dp
@@ -36,6 +37,7 @@ sql: >
     , Max(b.year) to_yr
     , Sum(CASE b.overs + b.balls WHEN 0 THEN 0 ELSE 1 END) seasons
     , Sum(b.wickets) wickets
+    , Sum(b.runs) runs
     , CAST(Sum(b.runs) AS FLOAT) / Sum(b.wickets) avg
     , CAST(Sum(b.overs * 6 + b.balls) AS FLOAT) / Sum(b.wickets) strike_rate
     , Sum(runs) / CAST(Sum(b.overs * 6 + b.balls) AS FLOAT) * 6 econ
