@@ -7,42 +7,64 @@ columns:
 - field: year
   class: year
 - field: matches
+  sort: hi
 - field: innings
+  sort: hi
 - field: notout
   heading: Not Out
+  sort: hi
 - field: high_score
   heading: Highest
+  sort: hi
 - field: runsscored
   heading: Runs
+  sort: hi
 - field: bat_avg
   heading: Average
   format: 2dp
+  sort: hi
 - field: fours
+  sort: hi
 - field: sixes
+  sort: hi
 - field: overs
+  sort: hi
 - field: maidens
+  sort: hi
 - field: runs
+  sort: hi
 - field: wickets
+  sort: hi
 - field: bowl_avg
   heading: Average
   format: 2dp
+  sort: lo
 - field: econ
   format: 2dp
+  sort: lo
 - field: strike_rate
   heading: Strike Rate
   format: 2dp
+  sort: lo
 - field: fivewktinn
   heading: Five-for+
+  sort: hi
 - field: caught
+  sort: hi
 - field: stumped
+  sort: hi
 - field: fifties
+  sort: hi
 - field: hundreds
-- field: fives
+  sort: hi
 - field: caughtwkt
   heading: Ct Wkt
+  sort: hi
 - field: captain
+  sort: hi
 - field: keptwicket
   heading: Kept Wkt
+  sort: hi
 sql: >
         SELECT
           year

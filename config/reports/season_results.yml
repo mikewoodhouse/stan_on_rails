@@ -4,23 +4,55 @@ key: season_results
 columns:
 - field: year
   class: year
+  sort: hi
 - field: played
+  sort: hi
 - field: won
+  sort: hi
+- field: won_pct
+  heading: "%"
+  format: pct
+  sort: hi
 - field: lost
+  sort: lo
+- field: lost_pct
+  heading: "%"
+  format: pct
+  sort: hi
 - field: drawn
   heading: Drew
+  sort: hi
+- field: drawn_pct
+  heading: "%"
+  format: pct
+  sort: hi
 - field: tied
+  sort: hi
+- field: tied_pct
+  heading: "%"
+  format: pct
+  sort: hi
 - field: noresult
+  sort: hi
   heading: N/R
+- field: noresult_pct
+  heading: "%"
+  format: pct
+  sort: hi
 sql: >
       SELECT
         year
       , played
       , won
+      , 100.0 * won / played won_pct
       , lost
+      , 100.0 * lost / played lost_pct
       , drawn
+      , 100.0 * drawn / played drawn_pct
       , tied
+      , 100.0 * tied / played tied_pct
       , noresult
+      , 100.0 * noresult / played noresult_pct
       , 0 is_totals
       FROM seasons
       UNION
@@ -28,10 +60,15 @@ sql: >
         'Total' year
       , Sum(played) played
       , Sum(won) won
+      , 100.0 * Sum(won) / Sum(played) won_pct
       , Sum(lost) lost
+      , 100.0 * Sum(lost) / Sum(played) lost_pct
       , Sum(drawn) drawn
+      , 100.0 * Sum(drawn) / Sum(played) drawn_pct
       , Sum(tied) tied
+      , 100.0 * Sum(tied) / Sum(played) tied_pct
       , Sum(noresult) noresult
+      , 100.0 * Sum(noresult) / Sum(played) noresult_pct
       , 1 is_totals
       FROM seasons
       ORDER BY is_totals DESC, year DESC

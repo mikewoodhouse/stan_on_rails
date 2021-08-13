@@ -13,23 +13,34 @@ columns:
   heading: To
   class: year
 - field: seasons
+  sort: hi
 - field: matches
   heading: Matches
+  sort: hi
 - field: innings
   heading: Innings
+  sort: hi
 - field: notout
   heading: Not Out
+  sort: hi
 - field: high_score
   heading: Highest
+  sort: hi
 - field: runsscored
   heading: Runs
+  sort: hi
 - field: batave
   heading: Average
   format: 2dp
+  sort: hi
 - field: fours
+  sort: hi
 - field: sixes
+  sort: hi
 - field: fifties
+  sort: hi
 - field: hundreds
+  sort: hi
 sql: >
     WITH player_lookup AS
     (

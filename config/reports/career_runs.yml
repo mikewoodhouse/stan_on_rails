@@ -12,6 +12,7 @@ columns:
   heading: To
   class: year
 - field: runs
+  sort: hi
 sql: >
     WITH player_lookup AS
     (

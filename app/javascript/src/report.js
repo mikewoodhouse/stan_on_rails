@@ -6,7 +6,9 @@ sortReportData = function (key) {
     let hi_lo = col.sort
     col.sort = hi_lo == 'hi' ? 'lo' : 'hi'
     report.data.sort(function (a, b) {
-        return hi_lo == 'lo' ? a[key] - b[key] : b[key] - a[key]
+        let a_val = a[key] == 'Total' ? 99999999 : a[key]
+        let b_val = b[key] == 'Total' ? 99999999 : b[key]
+        return hi_lo == 'lo' ? a_val - b_val : b_val - a_val
     })
     putTable(tabulate(report))
 }

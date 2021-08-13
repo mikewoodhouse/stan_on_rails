@@ -13,21 +13,29 @@ columns:
   class: year
 - field: seasons
   heading: Seasons
+  sort: hi
 - field: matches
   heading: Matches
+  sort: hi
 - field: won
   heading: Won
+  sort: hi
 - field: pct_won
   heading: Won %
   format: pct
+  sort: hi
 - field: lost
   heading: Lost
+  sort: lo
 - field: drawn
   heading: Drawn
+  sort: lo
 - field: tied
   heading: Tied
+  sort: hi
 - field: nodecision
   heading: N/D
+  sort: hi
 sql: >
     WITH player_lookup AS
     (
