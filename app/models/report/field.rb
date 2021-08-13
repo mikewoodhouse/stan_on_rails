@@ -2,22 +2,12 @@
 
 module Report
   class Field
-    class << self
-      def from_h(coldef)
-        new(
-          coldef['field'],
-          coldef['heading'],
-          coldef['class'],
-          coldef['format'],
-        )
-      end
-    end
-
-    def initialize(key, heading = nil, cls = nil, format = nil)
-      @key = key
-      @heading = heading || key.capitalize
-      @cls = cls || (key == 'name' ? 'name' : 'number')
-      @format = format
+    def initialize(coldef = {})
+      @key = coldef['field']
+      @heading = coldef['heading'] || @key.capitalize
+      @cls = coldef['cls'] || (@key == 'name' ? 'name' : 'number')
+      @format = coldef['format']
+      @sort = coldef['sort']
     end
 
     def to_h
@@ -25,7 +15,8 @@ module Report
         key: @key,
         heading: @heading,
         cls: @cls,
-        format: @format
+        format: @format,
+        sort: @sort,
       }
     end
   end

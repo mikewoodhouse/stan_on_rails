@@ -94,6 +94,9 @@ nav {
 thead {
   background: #d9dadc;
 }
+th.sortable {
+  cursor: pointer
+}
 tr.even {
   background: #c5d7d8;
 }

@@ -12,17 +12,23 @@ columns:
   heading: To
   class: year
 - field: seasons
+  sort: hi
 - field: wickets
+  sort: hi
 - field: runs
+  sort: hi
 - field: avg
   heading: Average
   format: 2dp
+  sort: lo
 - field: econ
   heading: Economy
   format: 2dp
+  sort: lo
 - field: strike_rate
   heading: Strike Rate
   format: 2dp
+  sort: lo
 sql: >
     WITH player_lookup AS
     (

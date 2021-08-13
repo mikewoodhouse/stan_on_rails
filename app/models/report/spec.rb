@@ -9,7 +9,7 @@ module Report
           s.title = repdef['title'] || repdef['key'].capitalize
           s.subtitle = repdef['subtitle']
           s.menu = repdef['menu']
-          s.columns = repdef['columns'].map { |c| Report::Field.from_h(c) }
+          s.columns = repdef['columns'].map { |coldef| Report::Field.new(coldef) }
           s.parameters = repdef['parameters'] || []
           s.sql = repdef['sql']
         end

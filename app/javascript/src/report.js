@@ -1,9 +1,12 @@
 
 var report = null;
 
-sortReportData = function (sort_key) {
+sortReportData = function (key) {
+    let col = report.columns.find(coldef => coldef.key == key)
+    let hi_lo = col.sort
+    col.sort = hi_lo == 'hi' ? 'lo' : 'hi'
     report.data.sort(function (a, b) {
-        return a[sort_key] - b[sort_key]
+        return hi_lo == 'lo' ? a[key] - b[key] : b[key] - a[key]
     })
     putTable(tabulate(report))
 }
@@ -29,10 +32,11 @@ tabulate = function (report) {
     cols.forEach((col) => {
         let th = document.createElement('th')
         th.innerHTML = col.heading
-        if(col.cls == "number") {
+        if(col.sort != null) {
             th.addEventListener('click', function () {
                 sortReportData(col.key)
             })
+            th.className = "sortable"
         }
         tr.appendChild(th)
     })
