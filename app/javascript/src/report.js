@@ -52,7 +52,7 @@ tabulate = function (report) {
             cel.innerHTML = formatted(row[col.key], col.format)
             if (col.key == "name") {
                 cel.addEventListener('click', function () {
-                    getPlayerPerformance(`${row.id}`)
+                    getPlayerPerformance(row.id, row.name)
                 })
             }
             cel.className = col.cls
@@ -77,10 +77,9 @@ filtersFor = function (report, report_name) {
     return form
 }
 
-getPlayerPerformance = function (id) {
-    console.log(`getPlayerPerformance(${id})`)
-    let qry = `player_id=${id}`
-    console.log(id)
+getPlayerPerformance = function (id, name) {
+    let qry = `player_id=${id}&player_name=${name}`
+    console.log(qry)
     getReport('performance', qry)
 }
 
@@ -121,8 +120,6 @@ global.getReport = function (report_name, qry="") {
     if (qry.length > 0) {
         url += '?' + qry
     }
-
-    console.log(url)
 
     xhttp.open("GET", url, true)
     xhttp.send()
