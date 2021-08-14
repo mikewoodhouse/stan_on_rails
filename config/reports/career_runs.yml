@@ -3,8 +3,6 @@ key: career_runs
 menu: Batting
 columns:
 - field: name
-  heading: Name
-  class: name
 - field: from_yr
   heading: From
   class: year
@@ -21,7 +19,8 @@ sql: >
         FROM players
     )
     SELECT
-      lkup.name
+      p.id
+    , lkup.name
     , Min(b.year) from_yr
     , Max(b.year) to_yr
     , Sum(b.runsscored) runs
