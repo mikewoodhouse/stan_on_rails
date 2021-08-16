@@ -5,14 +5,14 @@ module Report
     attr_accessor :key, :title, :subtitle, :columns, :params, :query_filters, :sql
 
     class << self
-      def from_spec(s)
+      def from_spec(spec)
         new.tap do |r|
-          r.key = s.key
-          r.title = s.title
-          r.subtitle = s.subtitle
-          r.columns = s.columns
-          r.query_filters = s.query_filters
-          r.sql = s.sql
+          r.key = spec.key
+          r.title = spec.title
+          r.subtitle = spec.subtitle
+          r.columns = spec.columns
+          r.query_filters = spec.query_filters
+          r.sql = spec.sql
         end
       end
     end
@@ -20,14 +20,12 @@ module Report
     def execute(params = {})
       @params = params
       query_binds = query_filters.map { |qf| params[qf.desc] || qf.default }
-      puts "query_binds=#{query_binds}"
       @rows = ActiveRecord::Base.connection.exec_query(@sql, @title, query_binds)
     end
 
     def to_h
       {
         'key' => @key,
-        'title' => @title,
         'title' => parameterize(@title),
         'subtitle' => @subtitle,
         'columns' => @columns.map(&:to_h),
@@ -42,7 +40,7 @@ module Report
       param = template[regexp]
       return template unless param
 
-      param_name = param.gsub(/[\{\}]/, '')
+      param_name = param.gsub(/[{}]/, '')
       template.gsub(param, @params[param_name])
     end
   end
