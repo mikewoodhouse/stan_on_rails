@@ -28,12 +28,22 @@ module Report
       {
         'key' => @key,
         'title' => @title,
+        'title' => parameterize(@title),
         'subtitle' => @subtitle,
         'columns' => @columns.map(&:to_h),
         'data' => @rows.to_a,
         'params' => @params,
         'filters' => @query_filters
       }
+    end
+
+    def parameterize(template)
+      regexp = /\{.+\}/
+      param = template[regexp]
+      return template unless param
+
+      param_name = param.gsub(/[\{\}]/, '')
+      template.gsub(param, @params[param_name])
     end
   end
 end
