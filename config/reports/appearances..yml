@@ -1,7 +1,11 @@
 title: Appearances
 key: appearances
 menu: Players
-parameters: {'min_matches': 100, 'from_year': 2000}
+query_filters:
+- desc: Min Matches
+  default: 100
+- desc: Active since
+  default: 2000
 columns:
 - field: name
 - field: from_yr

@@ -16,7 +16,7 @@ module Report
         heading: @heading,
         cls: @cls,
         format: @format,
-        sort: @sort,
+        sort: @sort
       }
     end
   end

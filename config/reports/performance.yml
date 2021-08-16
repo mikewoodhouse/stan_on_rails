@@ -2,7 +2,10 @@ title: "Player Performance: {player_name}"
 subtitle: Season by season
 key: performance
 menu: false
-parameters: {'player_id': 1}
+query_filters:
+- desc: player_id
+  default: 1
+  display: no
 columns:
 - field: year
   class: year

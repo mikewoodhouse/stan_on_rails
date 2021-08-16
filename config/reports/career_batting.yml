@@ -1,7 +1,9 @@
 title: Career Batting
 key: career_batting
 menu: Batting
-parameters: {'min_innings': 50}
+query_filters:
+- desc: Min Innings
+  default: 50
 columns:
 - field: name
   heading: Name
