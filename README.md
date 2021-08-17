@@ -20,6 +20,8 @@ I have a fair amount of detail at the match level from about 1995 onwards, avail
 # Development story so far
 Isn't it funny how refactoring takes a design to places you hadn't envisaged at the outset? I'd intended to build a fairly involved set of ActiveRecord models, out of which the desired reports would emerge. Instead, as things progressed, I found myself DRYing code into something more framework-like, with reports largely created declaratively in YAML files. Not complaining, mind: I like being able to make many of the changes likely to be needed via config files.
 I've also found myself moving more functionality into JavaScript, with the added "challenge" (so far, at least) of avoiding the use of importing anything external.
+## Building the database
+`rails db:migrate`, followed by `rake import:all` gets the job done. Rows are loaded one at a time, which isn't very efficient in computer terms, but the whole thing takes less than a minute and shouldn't need to be run very often: weekly intervals at the very worst, yearly more likely. Or perhaps never, we'll see...
 # To-Do List
 In no particular order...
 * Look at migrating the whole thing to a SPA in some way. (Very blue-sky, this). Even further, could it be an even more static site (so potentially hosted somewhere like GitHub at minimal/no cost?) using something like this: https://phiresky.github.io/blog/2021/hosting-sqlite-databases-on-github-pages/ or just pushing all the data into the browser as text (there's only a little over 1MB of historical data if we convert to JSON) and building the queries & results there?
