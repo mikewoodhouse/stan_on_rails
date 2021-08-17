@@ -1,0 +1,50 @@
+title: Catches & Keeping
+subtitle: "Minimum total catches: {Min Catches}"
+key: catches
+menu: Fielding
+query_filters:
+- desc: Min Catches
+  default: 30
+columns:
+- field: name
+- field: caught
+  heading: Caught (not wicket)
+  sort: hi
+- field: caughtwkt
+  heading: Caught (Wicket)
+  sort: hi
+- field: caught_total
+  heading: Caught (Total)
+  sort: hi
+- field: stumped
+  sort: hi
+- field: keptwicket
+  heading: Kept Wicket
+  sort: hi
+sql: >
+    WITH player_lookup AS
+    (
+        SELECT id
+        , surname || ', ' || COALESCE(firstname, initial, '') AS name
+        FROM players
+    )
+    SELECT
+      p.id
+    , lkup.name
+    , Sum(f.caught) - Sum(caughtwkt) caught
+    , Sum(caughtwkt) caughtwkt
+    , Sum(f.caught) caught_total
+    , Sum(f.stumped) stumped
+    , Sum(keptwicket) keptwicket
+    FROM players p
+        INNER JOIN performances f
+        ON f.player_id = p.id
+        INNER JOIN player_lookup lkup
+        ON lkup.id = p.id
+    GROUP BY
+        p.id
+    ,   lkup.name
+    HAVING
+      Sum(f.caught) >= $1
+    ORDER BY
+        caught_total DESC
