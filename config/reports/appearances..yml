@@ -1,4 +1,5 @@
 title: Appearances
+subtitle: Players with at least {Min Matches} appearances who have played at least once since {Active since}
 key: appearances
 menu: Players
 query_filters:
@@ -15,6 +16,7 @@ columns:
   heading: To
   class: year
 - field: appearances
+  sort: hi
 sql: >
     WITH player_lookup AS
     (
