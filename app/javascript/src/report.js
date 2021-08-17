@@ -28,6 +28,10 @@ tabulate = function (report) {
     let header = table.createTHead()
     let tr = header.insertRow(-1)
 
+    if(report.index_column){
+        tr.appendChild(document.createElement('th')) // position number
+    }
+
     cols.forEach((col) => {
         let th = document.createElement('th')
         th.innerHTML = col.heading
@@ -41,9 +45,14 @@ tabulate = function (report) {
     })
 
     let body = table.createTBody()
+    let row_count = 1
     report.data.forEach((row, index) => {
         let tr = body.insertRow(-1)
         tr.className = index % 2 == 0 ? 'even' : 'odd'
+        if(report.index_column){
+            let cel = tr.insertCell(-1)
+            cel.innerHTML = row_count
+        }
         cols.forEach((col) => {
             let cel = tr.insertCell(-1)
             cel.innerHTML = formatted(row[col.key], col.format)
@@ -54,6 +63,7 @@ tabulate = function (report) {
             }
             cel.className = col.cls
         })
+        ++row_count
     })
     return table
 }

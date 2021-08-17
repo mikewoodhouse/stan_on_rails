@@ -9,6 +9,7 @@ module Report
           s.title = build_title(repdef)
           s.subtitle = repdef['subtitle']
           s.menu = repdef['menu']
+          s.index_column = repdef.key?('index_column') ? repdef['index_column'] : true
           s.columns = build_columns(repdef['columns'])
           s.query_filters = build_query_filters(repdef['query_filters'])
           s.sql = repdef['sql']
@@ -30,7 +31,7 @@ module Report
       end
     end
 
-    attr_accessor :key, :title, :subtitle, :menu, :columns, :query_filters, :sql
+    attr_accessor :key, :title, :subtitle, :menu, :columns, :query_filters, :sql, :index_column
 
     def to_s
       "#{key}: #{title}|#{menu}|#{columns.size} cols|#{query_filters}"

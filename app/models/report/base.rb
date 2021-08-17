@@ -2,7 +2,7 @@
 
 module Report
   class Base
-    attr_accessor :key, :title, :subtitle, :columns, :params, :query_filters, :sql
+    attr_accessor :key, :title, :subtitle, :columns, :params, :query_filters, :sql, :index_column
 
     class << self
       def from_spec(spec)
@@ -13,6 +13,7 @@ module Report
           r.columns = spec.columns
           r.query_filters = spec.query_filters
           r.sql = spec.sql
+          r.index_column = spec.index_column
         end
       end
     end
@@ -31,17 +32,19 @@ module Report
         'columns' => @columns.map(&:to_h),
         'data' => @rows.to_a,
         'params' => @params,
-        'filters' => @query_filters
+        'filters' => @query_filters,
+        'index_column' => @index_column
       }
     end
 
     def param_value_for(target)
       param_name = target.gsub(/[{}]/, '')
-      @params[param_name] || query_filters.find{|qf| qf.desc == param_name}.default
+      @params[param_name] || query_filters.find{ |qf| qf.desc == param_name }.default
     end
 
     def parameterize(template)
       return "" unless template
+
       regexp = /\{[^}]+\}/
       template.gsub(regexp) {|target| param_value_for(target)}
     end
