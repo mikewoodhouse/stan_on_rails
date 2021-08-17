@@ -41,6 +41,7 @@ module Report
     end
 
     def parameterize(template)
+      return "" unless template
       regexp = /\{[^}]+\}/
       template.gsub(regexp) {|target| param_value_for(target)}
     end

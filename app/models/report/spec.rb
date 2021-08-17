@@ -24,7 +24,7 @@ module Report
       end
 
       def build_query_filters(filter_list)
-        return unless filter_list
+        return [] unless filter_list
 
         filter_list.map { |qf| Report::QueryFilter.new(qf) }
       end
