@@ -27,7 +27,7 @@ module Report
       {
         'key' => @key,
         'title' => parameterize(@title),
-        'subtitle' => @subtitle,
+        'subtitle' => parameterize(@subtitle),
         'columns' => @columns.map(&:to_h),
         'data' => @rows.to_a,
         'params' => @params,
@@ -35,13 +35,14 @@ module Report
       }
     end
 
-    def parameterize(template)
-      regexp = /\{.+\}/
-      param = template[regexp]
-      return template unless param
+    def param_value_for(target)
+      param_name = target.gsub(/[{}]/, '')
+      @params[param_name] || query_filters.find{|qf| qf.desc == param_name}.default
+    end
 
-      param_name = param.gsub(/[{}]/, '')
-      template.gsub(param, @params[param_name])
+    def parameterize(template)
+      regexp = /\{[^}]+\}/
+      template.gsub(regexp) {|target| param_value_for(target)}
     end
   end
 end
