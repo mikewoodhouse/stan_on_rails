@@ -1,6 +1,10 @@
 title: Career Wickets
+subtitle: Players with at least {Min Wickets} wickets
 key: career_wickets
 menu: Bowling
+query_filters:
+- desc: Min Wickets
+  default: 10
 columns:
 - field: name
   heading: Name
@@ -56,5 +60,5 @@ sql: >
     GROUP BY
       p.id
     , lkup.name
-    HAVING Sum(b.wickets) > 0
+    HAVING Sum(b.wickets) >= $1
     ORDER BY wickets DESC
