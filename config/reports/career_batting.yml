@@ -1,4 +1,5 @@
 title: Career Batting
+subtitle: "Minimum innings: {Min Innings}"
 key: career_batting
 menu: Batting
 query_filters:
