@@ -39,14 +39,14 @@ module Report
 
     def param_value_for(target)
       param_name = target.gsub(/[{}]/, '')
-      @params[param_name] || query_filters.find{ |qf| qf.desc == param_name }.default
+      @params[param_name] || query_filters.find { |qf| qf.desc == param_name }.default
     end
 
     def parameterize(template)
-      return "" unless template
+      return '' unless template
 
       regexp = /\{[^}]+\}/
-      template.gsub(regexp) {|target| param_value_for(target)}
+      template.gsub(regexp) { |target| param_value_for(target) }
     end
   end
 end

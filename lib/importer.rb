@@ -23,7 +23,8 @@ class Importer
   end
 
   def csv_filepath
-    file_name = (@input_filename || @klass.to_s) + '.txt'
+    basename = @input_filename || @klass.to_s
+    file_name = "#{basename}.txt"
     File.join(CSV_PATH, file_name)
   end
 
@@ -32,7 +33,7 @@ class Importer
     @klass.destroy_all
     player_id_lookup = Hash[Player.all.map { |p| [p.code, p.id] }]
     File.open(csv_filepath, 'r') do |fin|
-      hdrs = CSV.parse(fin.readline).flatten.map { |h| h.downcase }
+      hdrs = CSV.parse(fin.readline).flatten.map(&:downcase)
       int_cols = hdrs - @string_cols - @bool_cols - @date_cols
       until fin.eof
         line = fin.readline
