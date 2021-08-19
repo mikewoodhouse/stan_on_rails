@@ -15,6 +15,8 @@ columns:
 - field: to_yr
   heading: To
   class: year
+- field: seasons
+  sort: hi
 - field: appearances
   sort: hi
 sql: >
@@ -29,6 +31,7 @@ sql: >
     , lkup.name
     , min(f.year) from_yr
     , max(f.year) to_yr
+    , Count(*) seasons
     , Sum(f.matches) appearances
     FROM players p
         INNER JOIN performances f
@@ -40,4 +43,4 @@ sql: >
     HAVING
         Sum(f.matches) >= $1
     AND Max(f.year) >= $2
-    ORDER BY lkup.name
+    ORDER BY appearances DESC, from_yr
