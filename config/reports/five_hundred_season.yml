@@ -1,0 +1,36 @@
+title: Five Hundred In a Season
+key: five_hundred_season
+menu: Batting
+columns:
+- field: name
+- field: year
+- field: matches
+- field: runsscored
+  heading: Runs
+  sort: hi
+- field: average
+  format: 2dp
+  sort: hi
+sql: >
+    WITH player_lookup AS
+    (
+        SELECT id
+        , surname || ', ' || COALESCE(firstname, initial, '') AS name
+        FROM players
+    )
+    SELECT
+      p.id
+    , lkup.name
+    , f.year
+    , f.matches
+    , f.runsscored
+    , CAST(f.runsscored AS FLOAT) / (f.innings - f.notout) average
+    FROM players p
+        INNER JOIN performances f
+        ON f.player_id = p.id
+        INNER JOIN player_lookup lkup
+        ON lkup.id = p.id
+    WHERE
+         f.runsscored >= 500
+    ORDER BY
+          f.runsscored DESC

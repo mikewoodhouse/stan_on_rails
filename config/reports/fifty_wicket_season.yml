@@ -1,0 +1,43 @@
+title: Fifty Wickets in a Season
+key: fifty_wicket_season
+menu: Bowling
+columns:
+- field: name
+- field: year
+- field: matches
+- field: wickets
+  sort: hi
+- field: runs
+  sort: lo
+- field: wickets_per_match
+  heading: Wkts/match
+  format: 2dp
+  sort: hi
+- field: average
+  format: 2dp
+  sort: lo
+sql: >
+    WITH player_lookup AS
+    (
+        SELECT id
+        , surname || ', ' || COALESCE(firstname, initial, '') AS name
+        FROM players
+    )
+    SELECT
+      p.id
+    , lkup.name
+    , f.year
+    , f.matches
+    , f.wickets
+    , f.runs
+    , CAST(f.wickets AS FLOAT) / f.matches wickets_per_match
+    , CAST(f.runs AS FLOAT) / f.wickets average
+    FROM players p
+        INNER JOIN performances f
+        ON f.player_id = p.id
+        INNER JOIN player_lookup lkup
+        ON lkup.id = p.id
+    WHERE
+         f.wickets >= 50
+    ORDER BY
+        f.wickets DESC
