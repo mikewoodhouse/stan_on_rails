@@ -3,19 +3,6 @@
 module Report
   class Spec
     class << self
-      def from_h(repdef)
-        new.tap do |s|
-          s.key = repdef['key']
-          s.title = build_title(repdef)
-          s.subtitle = repdef['subtitle']
-          s.menu = repdef['menu']
-          s.index_column = repdef.key?('index_column') ? repdef['index_column'] : true
-          s.columns = build_columns(repdef['columns'])
-          s.query_filters = build_query_filters(repdef['query_filters'])
-          s.sql = repdef['sql']
-        end
-      end
-
       def build_title(repdef)
         repdef['title'] || repdef['key'].capitalize
       end
@@ -32,6 +19,17 @@ module Report
     end
 
     attr_accessor :key, :title, :subtitle, :menu, :columns, :query_filters, :sql, :index_column
+
+    def initialize(key, repdef)
+      @key = key
+      @title = Spec.build_title(repdef)
+      @subtitle = repdef['subtitle']
+      @menu = repdef['menu']
+      @index_column = repdef.fetch('index_column', true)
+      @columns = Spec.build_columns(repdef['columns'])
+      @query_filters = Spec.build_query_filters(repdef['query_filters'])
+      @sql = repdef['sql']
+    end
 
     def to_s
       "#{key}: #{title}|#{menu}|#{columns.size} cols|#{query_filters}"

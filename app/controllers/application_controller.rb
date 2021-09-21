@@ -5,15 +5,17 @@ class ApplicationController < ActionController::Base
 
   def reports_menu
     Hash.new { |h, k| h[k] = [] }.tap do |h|
-      report_specs.each do |spec|
+      report_specs.each_value do |spec|
         h[spec.menu] << spec.menu_entry if spec.menu
       end
     end
   end
 
   def report_specs
-    Rails.configuration.reports.map do |report_def|
-      Report::Spec.from_h(report_def)
+    @report_specs ||= {}.tap do |h|
+      Rails.configuration.report_defs.map do |report_def|
+        h[report_def.first] = Report::Spec.new(*report_def)
+      end
     end
   end
 end

@@ -18,8 +18,8 @@ module Stan
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.reports = Dir.glob('config/reports/*.yml').map do |path|
-      YAML.safe_load(File.read(path))
+    config.report_defs = Dir.glob('config/reports/*.yml').map do |path|
+      [File.basename(path, '.*'), YAML.safe_load(File.read(path))]
     end
   end
 end

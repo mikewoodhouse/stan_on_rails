@@ -19,8 +19,9 @@ class ReportController < ApplicationController
 
   def fetch
     key = params[:key]
-    spec = report_specs.find { |s| s.key == key }
-    report = Report::Base.from_spec(spec)
+    # spec = report_specs.find { |s| s.key == key }
+    # report = Report::Base.from_spec(spec)
+    report = Report::Base.from_spec(report_specs[key])
     report.execute(params)
     respond_to do |format|
       format.json do
