@@ -1,6 +1,5 @@
 title: Result Summary - Season by Season
 menu: Matches
-key: season_results
 index_column: false
 columns:
 - field: year
