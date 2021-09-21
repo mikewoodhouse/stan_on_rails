@@ -1,6 +1,5 @@
 title: Appearances
 subtitle: Players with at least {Min Matches} appearances who have played at least once since {Active since}
-key: appearances
 menu: Players
 query_filters:
 - desc: Min Matches
