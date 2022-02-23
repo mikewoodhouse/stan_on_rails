@@ -48,6 +48,8 @@ group :development do
 
   gem "rubocop"
   gem "rubocop-rails"
+
+  gem "rubyXL", "~> 3.4.21"
 end
 
 group :test do
