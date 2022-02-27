@@ -3,20 +3,19 @@ require:
 Style/Documentation:
   Enabled: false
 Layout/EndOfLine:
-  StyleGuide: '#lf'
+  StyleGuide: "#lf"
   EnforcedStyle: lf
 AllCops:
+  NewCops: enable
   Exclude:
-  - db/**/*
-  - vendor/**/*
-  - test/**/*
-  - app/channels/**/*
-  - app/jobs/**/*
-  - config/puma.rb
-  - app/mailers/**/*
-  - config/environments/**/*
-  - bin/**/*
-  - Gemfile
-  - Rakefile
-
-
+    - db/**/*
+    - vendor/**/*
+    - test/**/*
+    - app/channels/**/*
+    - app/jobs/**/*
+    - config/puma.rb
+    - app/mailers/**/*
+    - config/environments/**/*
+    - bin/**/*
+    - Gemfile
+    - Rakefile
