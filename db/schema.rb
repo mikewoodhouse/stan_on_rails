@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_14_172916) do
+ActiveRecord::Schema.define(version: 2022_02_26_164854) do
 
   create_table "best_bowlings", force: :cascade do |t|
     t.integer "player_id"
@@ -53,6 +53,32 @@ ActiveRecord::Schema.define(version: 2021_05_14_172916) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["player_id"], name: "index_hundred_plus_on_player_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.date "date"
+    t.string "oppo"
+    t.string "venue"
+    t.string "result"
+    t.string "bat_first"
+    t.integer "first_runs"
+    t.integer "first_wkts"
+    t.boolean "first_all_out"
+    t.string "first_notes"
+    t.integer "second_runs"
+    t.integer "second_wkts"
+    t.boolean "second_all_out"
+    t.string "second_notes"
+    t.integer "tocc_w"
+    t.integer "tocc_nb"
+    t.integer "tocc_b"
+    t.integer "tocc_lb"
+    t.integer "opp_w"
+    t.integer "opp_nb"
+    t.integer "opp_b"
+    t.integer "opp_lb"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "partnerships", force: :cascade do |t|
